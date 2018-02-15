@@ -9,8 +9,8 @@ import android.app.AlertDialog;
 
 public class login extends AppCompatActivity {
 
-    private String adminUser = "username";
-    private String adminPass = "password";
+    private String adminUser = "user";
+    private String adminPass = "pass";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
