@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.content.Intent;
 import android.widget.EditText;
+import android.app.AlertDialog;
 
 public class login extends AppCompatActivity {
 
@@ -24,6 +25,11 @@ public class login extends AppCompatActivity {
         if (username.getText().toString().equals(adminUser) && password.getText().toString().equals(adminPass)) {
             Intent intent = new Intent(login.this, Application.class);
             startActivity(intent);
+        } else {
+            AlertDialog alertDialog = new AlertDialog.Builder(login.this).create();
+            alertDialog.setTitle("Bad Login");
+            alertDialog.setMessage("Account with given username and password not found.");
+            alertDialog.show();
         }
     }
 
