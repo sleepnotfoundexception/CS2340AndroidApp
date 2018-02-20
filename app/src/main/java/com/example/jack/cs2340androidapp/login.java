@@ -43,7 +43,6 @@ public class login extends AppCompatActivity {
             AlertDialog alertDialog = new AlertDialog.Builder(login.this).create();
             alertDialog.setTitle("Bad Login");
             alertDialog.setMessage("Account with given username and password not found.");
-            alertDialog.setMessage(User.UserList.size() + "");
             alertDialog.show();
         }
     }
