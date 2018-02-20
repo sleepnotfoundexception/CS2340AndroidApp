@@ -30,7 +30,6 @@ public class login extends AppCompatActivity {
         EditText password = findViewById(R.id.passwordInput);
         boolean matches = false;
         for (User user: User.UserList) {
-            System.out.println(user.getEmail() + " " + user.getPassword());
             if (user.getEmail().equals(username.getText().toString()) && user.getPassword().equals(password.getText().toString())) {
                 matches = true;
                 loggedUser = user;
