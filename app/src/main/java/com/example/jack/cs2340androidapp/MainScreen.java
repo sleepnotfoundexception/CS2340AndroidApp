@@ -17,4 +17,9 @@ public class MainScreen extends AppCompatActivity {
         Intent moveToLogin = new Intent(MainScreen.this, login.class);
         startActivity(moveToLogin);
     }
+
+    public void openRegistration(View view) {
+        Intent moveToRegistration = new Intent(MainScreen.this, Registration.class);
+        startActivity(moveToRegistration);
+    }
 }
