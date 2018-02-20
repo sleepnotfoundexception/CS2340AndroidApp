@@ -1,5 +1,6 @@
 package com.example.jack.cs2340androidapp;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +27,7 @@ public class User {
         this.password = password;
         this.administrator = administrator;
         UserList.add(this);
+        MainScreen.saveUserList();
     }
 
     public String getName() {

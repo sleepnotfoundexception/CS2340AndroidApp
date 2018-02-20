@@ -14,7 +14,7 @@ public class Registration extends AppCompatActivity {
 
     private String adminPass = "a";
     private String adminPassGet = "";
-    boolean continueLogin = true;
+    boolean adminPassRequirementMet = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,12 +36,12 @@ public class Registration extends AppCompatActivity {
                 public void onClick(DialogInterface dialog, int which) {
                     adminPassGet = input.getText().toString();
                     if (!adminPassGet.equals(adminPass)) {
-                        continueLogin = false;
+                        adminPassRequirementMet = false;
                     } else {
-                        continueLogin = true;
+                        adminPassRequirementMet = true;
                         adminPassGet = "";
                     }
-                    createUser(continueLogin);
+                    createUser(adminPassRequirementMet);
                 }
             });
             builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
