@@ -23,6 +23,8 @@ public class login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        EditText username = findViewById(R.id.usernameInput);
+        username.requestFocus();
     }
 
     public void login(View view) {
