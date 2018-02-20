@@ -9,6 +9,16 @@ import android.widget.EditText;
 
 public class login extends AppCompatActivity {
 
+    private static User loggedUser;
+
+    public static User getLoggedUser() {
+        return loggedUser;
+    }
+
+    public static void clearLoggedUser() {
+        loggedUser = null;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,6 +33,7 @@ public class login extends AppCompatActivity {
             System.out.println(user.getEmail() + " " + user.getPassword());
             if (user.getEmail().equals(username.getText().toString()) && user.getPassword().equals(password.getText().toString())) {
                 matches = true;
+                loggedUser = user;
             }
         }
         if (matches) {

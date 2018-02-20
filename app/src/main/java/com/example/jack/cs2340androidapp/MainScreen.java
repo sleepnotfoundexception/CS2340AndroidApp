@@ -33,6 +33,7 @@ public class MainScreen extends AppCompatActivity {
         Intent moveToRegistration = new Intent(MainScreen.this, Registration.class);
         startActivity(moveToRegistration);
     }
+
     public void loadUserList() {
         sharedPref = getPreferences(Context.MODE_PRIVATE);
         if (sharedPref.contains("UserList")) {
