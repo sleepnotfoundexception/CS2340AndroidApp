@@ -7,17 +7,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="de819b50-e193-43ca-b800-7268d7752588" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/fileContent/fileContent.lock" afterPath="$PROJECT_DIR$/.gradle/4.1/fileContent/fileContent.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.lock" afterPath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/javaCompile/classAnalysis.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/javaCompile/classAnalysis.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/javaCompile/javaCompile.lock" afterPath="$PROJECT_DIR$/.gradle/4.1/javaCompile/javaCompile.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/javaCompile/taskHistory.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/javaCompile/taskHistory.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/taskHistory/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/taskHistory/fileSnapshots.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.lock" afterPath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/jack/cs2340androidapp/Application.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/jack/cs2340androidapp/Application.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_application.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_application.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_registration.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_registration.xml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -69,14 +67,13 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Application.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Application.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/jack/cs2340androidapp/Application.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="232">
-              <caret line="32" column="44" lean-forward="false" selection-start-line="32" selection-start-column="44" selection-end-line="32" selection-end-column="44" />
+            <state relative-caret-position="82">
+              <caret line="22" column="72" lean-forward="false" selection-start-line="22" selection-start-column="72" selection-end-line="22" selection-end-column="72" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#883#2052#0" expanded="true" />
                 <element signature="e#2051#2052#0" expanded="true" />
               </folding>
             </state>
@@ -148,6 +145,19 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="activity_login.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml">
+          <provider selected="true" editor-type-id="android-designer2">
+            <state />
+          </provider>
+          <provider editor-type-id="text-editor">
+            <state relative-caret-position="262">
+              <caret line="79" column="31" lean-forward="false" selection-start-line="79" selection-start-column="31" selection-end-line="79" selection-end-column="31" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="MainScreen.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/jack/cs2340androidapp/MainScreen.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -161,11 +171,24 @@
       <file leaf-file-name="Registration.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/jack/cs2340androidapp/Registration.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="101" column="0" lean-forward="false" selection-start-line="101" selection-start-column="0" selection-end-line="119" selection-end-column="52" />
+            <state relative-caret-position="330">
+              <caret line="116" column="9" lean-forward="false" selection-start-line="116" selection-start-column="9" selection-end-line="116" selection-end-column="9" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="activity_registration.xml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_registration.xml">
+          <provider selected="true" editor-type-id="android-designer2">
+            <state />
+          </provider>
+          <provider editor-type-id="text-editor">
+            <state relative-caret-position="1005">
+              <caret line="67" column="36" lean-forward="false" selection-start-line="67" selection-start-column="36" selection-end-line="67" selection-end-column="36" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -1931,9 +1954,7 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_main_screen.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_registration.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/jack/cs2340androidapp/User.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/jack/cs2340androidapp/login.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/jack/cs2340androidapp/Registration.java" />
         <option value="$PROJECT_DIR$/build.gradle" />
@@ -1942,9 +1963,11 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/jack/cs2340androidapp/Firebase.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/jack/cs2340androidapp/MainScreen.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/jack/cs2340androidapp/ShelterModel.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_application.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/jack/cs2340androidapp/FirebaseHandler.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/jack/cs2340androidapp/Application.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_application.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_registration.xml" />
       </list>
     </option>
   </component>
@@ -2093,7 +2116,7 @@
     <property name="android.sdk.path" value="$USER_HOME$/Library/Android/sdk" />
     <property name="settings.editor.selected.configurable" value="editor.preferences.import" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="device.picker.selection" value="G090MH0674720EFX" />
+    <property name="device.picker.selection" value="Nexus_One_API_27" />
     <property name="android.project.structure.last.selected" value="SDK Location" />
     <property name="android.project.structure.proportion" value="0.15" />
   </component>
@@ -2185,7 +2208,7 @@
       <option name="ACTIVITY_CLASS" value="" />
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1519759887492" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1519761974013" />
       </method>
     </configuration>
     <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Instrumented Tests">
@@ -2233,7 +2256,7 @@
       </Profilers>
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1519759887492" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1519761974014" />
       </method>
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -2416,7 +2439,7 @@
       <option name="ACTIVITY_CLASS" value="" />
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1519759887494" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1519761974022" />
       </method>
     </configuration>
     <list size="1">
@@ -2476,6 +2499,7 @@
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.40256798" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32977098" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32977098" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
@@ -2492,7 +2516,6 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.40256798" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -2696,28 +2719,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_registration.xml">
-      <provider selected="true" editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="1380">
-          <caret line="92" column="36" lean-forward="false" selection-start-line="92" selection-start-column="36" selection-end-line="92" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml">
-      <provider selected="true" editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="930">
-          <caret line="62" column="53" lean-forward="false" selection-start-line="62" selection-start-column="53" selection-end-line="62" selection-end-column="53" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
@@ -2774,14 +2775,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_application.xml">
-      <provider selected="true" editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/jack/cs2340androidapp/MainScreen.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="183">
+          <caret line="26" column="23" lean-forward="false" selection-start-line="26" selection-start-column="23" selection-end-line="26" selection-end-column="23" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/jack/cs2340androidapp/login.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="43" column="12" lean-forward="false" selection-start-line="43" selection-start-column="12" selection-end-line="43" selection-end-column="12" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -2834,30 +2842,35 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/jack/cs2340androidapp/Registration.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="101" column="0" lean-forward="false" selection-start-line="101" selection-start-column="0" selection-end-line="119" selection-end-column="52" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml">
+      <provider selected="true" editor-type-id="android-designer2">
+        <state />
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/jack/cs2340androidapp/MainScreen.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="183">
-          <caret line="26" column="23" lean-forward="false" selection-start-line="26" selection-start-column="23" selection-end-line="26" selection-end-column="23" />
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="262">
+          <caret line="79" column="31" lean-forward="false" selection-start-line="79" selection-start-column="31" selection-end-line="79" selection-end-column="31" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/jack/cs2340androidapp/login.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_application.xml">
+      <provider selected="true" editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/jack/cs2340androidapp/Application.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="43" column="12" lean-forward="false" selection-start-line="43" selection-start-column="12" selection-end-line="43" selection-end-column="12" />
+        <state relative-caret-position="82">
+          <caret line="22" column="72" lean-forward="false" selection-start-line="22" selection-start-column="72" selection-end-line="22" selection-end-column="72" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#2051#2052#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2874,15 +2887,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/jack/cs2340androidapp/Application.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/jack/cs2340androidapp/Registration.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="232">
-          <caret line="32" column="44" lean-forward="false" selection-start-line="32" selection-start-column="44" selection-end-line="32" selection-end-column="44" />
+        <state relative-caret-position="330">
+          <caret line="116" column="9" lean-forward="false" selection-start-line="116" selection-start-column="9" selection-end-line="116" selection-end-column="9" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#883#2052#0" expanded="true" />
-            <element signature="e#2051#2052#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_registration.xml">
+      <provider selected="true" editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="1005">
+          <caret line="67" column="36" lean-forward="false" selection-start-line="67" selection-start-column="36" selection-end-line="67" selection-end-column="36" />
+          <folding />
         </state>
       </provider>
     </entry>

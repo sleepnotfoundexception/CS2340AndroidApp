@@ -6,31 +6,6 @@
     android:layout_height="match_parent"
     tools:context="com.example.jack.cs2340androidapp.Registration">
 
-    <Button
-        android:id="@+id/cancel"
-        android:layout_width="178dp"
-        android:layout_height="45dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:onClick="back"
-        android:text="Cancel"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/register"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/register"
-        android:layout_width="178dp"
-        android:layout_height="45dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="16dp"
-        android:onClick="createUser"
-        android:text="Register"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
     <EditText
         android:id="@+id/cityField"
         android:layout_width="0dp"
@@ -126,5 +101,47 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordReenterField" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/cancel"
+            style="?attr/buttonBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@android:color/darker_gray"
+            android:onClick="back"
+            android:text="Cancel"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/register"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/register"
+            style="?attr/buttonBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_weight="1"
+            android:background="@android:color/darker_gray"
+            android:onClick="createUser"
+            android:text="Register"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
