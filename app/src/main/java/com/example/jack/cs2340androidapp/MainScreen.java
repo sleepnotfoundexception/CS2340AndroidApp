@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.google.firebase.FirebaseApp;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -21,6 +22,8 @@ public class MainScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen);
+        FirebaseApp.initializeApp(this);
+        FirebaseHandler firebase = new FirebaseHandler();
         loadUserList();
     }
 
