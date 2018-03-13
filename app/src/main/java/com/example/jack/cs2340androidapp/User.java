@@ -1,16 +1,11 @@
 package com.example.jack.cs2340androidapp;
 
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by Jack on 2/20/18.
  */
 
 public class User {
-
-    public static List<User> UserList = new ArrayList<User>();
 
     private String name;
     private String city;
@@ -24,8 +19,6 @@ public class User {
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.administrator = administrator;
-        UserList.add(this);
-        MainScreen.saveUserList();
     }
 
     public String getName() {

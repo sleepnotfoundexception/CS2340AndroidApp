@@ -10,6 +10,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class Application extends AppCompatActivity {
 
     @Override
@@ -45,7 +47,7 @@ public class Application extends AppCompatActivity {
             }
         });
 
-        if (login.getLoggedUser().isAdministrator()) {
+        if (MainScreen.userData.isAdministrator()) {
             TextView administrator = findViewById(R.id.adminConfirmation);
             administrator.setVisibility(View.VISIBLE);
         } else {
@@ -55,8 +57,8 @@ public class Application extends AppCompatActivity {
     }
 
     public void logout(View view) {
-        login.clearLoggedUser();
-        Intent intent = new Intent(Application.this, login.class);
+        FirebaseAuth.getInstance().signOut();
+        Intent intent = new Intent(Application.this, MainScreen.class);
         startActivity(intent);
     }
 
