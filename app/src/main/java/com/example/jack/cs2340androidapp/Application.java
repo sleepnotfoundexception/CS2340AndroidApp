@@ -46,7 +46,7 @@ public class Application extends AppCompatActivity {
                 }
             }
             if (!filter[1].equals("")) {
-                if (filter[1].equals("Male")) {
+                if (filter[1].equals("Female")) {
                     //I know my regex sucks and I could consolidate this sorry
                     //it does work
                     Pattern p = Pattern.compile("^men");
@@ -61,12 +61,12 @@ public class Application extends AppCompatActivity {
                     Matcher m4 = p4.matcher(s.getRestrictions().toLowerCase());
                     Matcher m5 = p5.matcher(s.getRestrictions().toLowerCase());
                     Matcher m6 = p6.matcher(s.getRestrictions().toLowerCase());
-                    if (!m.find() && !m2.find() && !m3.find() && !m4.find() && !m5.find() && !m6.find()) {
+                    if (m.find() || m2.find() || m3.find() || m4.find() || m5.find() || m6.find()) {
                         filterMatch = false;
                     }
                 }
-                if (filter[1].equals("Female")) {
-                    if (!s.getRestrictions().toLowerCase().contains("women") && !s.getRestrictions().toLowerCase().contains("female")) {
+                if (filter[1].equals("Male")) {
+                    if (s.getRestrictions().toLowerCase().contains("women") || s.getRestrictions().toLowerCase().contains("female")) {
                         filterMatch = false;
                     }
                 }

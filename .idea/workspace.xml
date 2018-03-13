@@ -9,12 +9,14 @@
     <list default="true" id="de819b50-e193-43ca-b800-7268d7752588" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.lock" afterPath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.lock" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/javaCompile/classAnalysis.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/javaCompile/classAnalysis.bin" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/javaCompile/javaCompile.lock" afterPath="$PROJECT_DIR$/.gradle/4.1/javaCompile/javaCompile.lock" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/javaCompile/taskHistory.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/javaCompile/taskHistory.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/taskHistory/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/taskHistory/fileSnapshots.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.lock" afterPath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/jack/cs2340androidapp/Application.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/jack/cs2340androidapp/Application.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/local.properties" afterPath="$PROJECT_DIR$/local.properties" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -44,16 +46,17 @@
       <file leaf-file-name="Application.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/jack/cs2340androidapp/Application.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="10" column="31" lean-forward="false" selection-start-line="10" selection-start-column="31" selection-end-line="10" selection-end-column="31" />
+            <state relative-caret-position="364">
+              <caret line="63" column="61" lean-forward="false" selection-start-line="63" selection-start-column="61" selection-end-line="63" selection-end-column="61" />
               <folding>
+                <element signature="imports" expanded="true" />
                 <element signature="e#652#653#0" expanded="true" />
                 <element signature="e#681#682#0" expanded="true" />
                 <element signature="e#734#735#0" expanded="true" />
                 <element signature="e#777#778#0" expanded="true" />
                 <element signature="e#1065#1074#0" expanded="true" />
-                <element signature="e#4023#5191#0" expanded="true" />
-                <element signature="e#5190#5191#0" expanded="true" />
+                <element signature="e#4015#5183#0" expanded="true" />
+                <element signature="e#5182#5183#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -86,7 +89,7 @@
       <file leaf-file-name="MainScreen.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/jack/cs2340androidapp/MainScreen.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="318">
+            <state relative-caret-position="-293">
               <caret line="59" column="28" lean-forward="false" selection-start-line="59" selection-start-column="28" selection-end-line="59" selection-end-column="28" />
               <folding>
                 <element signature="e#3289#3297#0" expanded="true" />
@@ -2099,7 +2102,7 @@
       <option name="ACTIVITY_CLASS" value="" />
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1520971161892" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1520971516533" />
       </method>
     </configuration>
     <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Instrumented Tests">
@@ -2147,7 +2150,7 @@
       </Profilers>
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1520971161892" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1520971516534" />
       </method>
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -2330,7 +2333,7 @@
       <option name="ACTIVITY_CLASS" value="" />
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1520971161894" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1520971516537" />
       </method>
     </configuration>
     <list size="1">
@@ -2452,17 +2455,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_registration.xml">
-      <provider selected="true" editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="1005">
-          <caret line="67" column="36" lean-forward="false" selection-start-line="67" selection-start-column="36" selection-end-line="67" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/jack/cs2340androidapp/User.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="450">
@@ -2507,13 +2499,14 @@
         <state relative-caret-position="210">
           <caret line="22" column="72" lean-forward="false" selection-start-line="22" selection-start-column="72" selection-end-line="22" selection-end-column="72" />
           <folding>
+            <element signature="imports" expanded="true" />
             <element signature="e#652#653#0" expanded="true" />
             <element signature="e#681#682#0" expanded="true" />
             <element signature="e#734#735#0" expanded="true" />
             <element signature="e#777#778#0" expanded="true" />
             <element signature="e#1065#1074#0" expanded="true" />
-            <element signature="e#4023#5191#0" expanded="true" />
-            <element signature="e#5190#5191#0" expanded="true" />
+            <element signature="e#4015#5183#0" expanded="true" />
+            <element signature="e#5182#5183#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2612,13 +2605,14 @@
         <state relative-caret-position="210">
           <caret line="22" column="72" lean-forward="false" selection-start-line="22" selection-start-column="72" selection-end-line="22" selection-end-column="72" />
           <folding>
+            <element signature="imports" expanded="true" />
             <element signature="e#652#653#0" expanded="true" />
             <element signature="e#681#682#0" expanded="true" />
             <element signature="e#734#735#0" expanded="true" />
             <element signature="e#777#778#0" expanded="true" />
             <element signature="e#1065#1074#0" expanded="true" />
-            <element signature="e#4023#5191#0" expanded="true" />
-            <element signature="e#5190#5191#0" expanded="true" />
+            <element signature="e#4015#5183#0" expanded="true" />
+            <element signature="e#5182#5183#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2706,13 +2700,14 @@
         <state relative-caret-position="300">
           <caret line="24" column="32" lean-forward="false" selection-start-line="24" selection-start-column="32" selection-end-line="24" selection-end-column="32" />
           <folding>
+            <element signature="imports" expanded="true" />
             <element signature="e#652#653#0" expanded="true" />
             <element signature="e#681#682#0" expanded="true" />
             <element signature="e#734#735#0" expanded="true" />
             <element signature="e#777#778#0" expanded="true" />
             <element signature="e#1065#1074#0" expanded="true" />
-            <element signature="e#4023#5191#0" expanded="true" />
-            <element signature="e#5190#5191#0" expanded="true" />
+            <element signature="e#4015#5183#0" expanded="true" />
+            <element signature="e#5182#5183#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2916,16 +2911,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/jack/cs2340androidapp/MainScreen.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="318">
-          <caret line="59" column="28" lean-forward="false" selection-start-line="59" selection-start-column="28" selection-end-line="59" selection-end-column="28" />
-          <folding>
-            <element signature="e#3289#3297#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/jack/cs2340androidapp/Registration.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="311">
@@ -2954,18 +2939,37 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/jack/cs2340androidapp/Filter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-12">
+          <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/jack/cs2340androidapp/MainScreen.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-293">
+          <caret line="59" column="28" lean-forward="false" selection-start-line="59" selection-start-column="28" selection-end-line="59" selection-end-column="28" />
+          <folding>
+            <element signature="e#3289#3297#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/jack/cs2340androidapp/Application.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="31" lean-forward="false" selection-start-line="10" selection-start-column="31" selection-end-line="10" selection-end-column="31" />
+        <state relative-caret-position="364">
+          <caret line="63" column="61" lean-forward="false" selection-start-line="63" selection-start-column="61" selection-end-line="63" selection-end-column="61" />
           <folding>
+            <element signature="imports" expanded="true" />
             <element signature="e#652#653#0" expanded="true" />
             <element signature="e#681#682#0" expanded="true" />
             <element signature="e#734#735#0" expanded="true" />
             <element signature="e#777#778#0" expanded="true" />
             <element signature="e#1065#1074#0" expanded="true" />
-            <element signature="e#4023#5191#0" expanded="true" />
-            <element signature="e#5190#5191#0" expanded="true" />
+            <element signature="e#4015#5183#0" expanded="true" />
+            <element signature="e#5182#5183#0" expanded="true" />
           </folding>
         </state>
       </provider>
