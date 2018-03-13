@@ -96,6 +96,9 @@ public class MainScreen extends AppCompatActivity {
                             }
                             userData = new User(name, city, MainScreen.activeUser.getEmail(), phone, isAdmin);
                             Intent moveToApp = new Intent(MainScreen.this, Application.class);
+                            moveToApp.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                            moveToApp.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            moveToApp.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(moveToApp);
                         }
                     }
