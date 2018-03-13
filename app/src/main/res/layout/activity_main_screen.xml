@@ -7,18 +7,6 @@
     tools:context="com.example.jack.cs2340androidapp.MainScreen">
 
     <Button
-        android:id="@+id/button3"
-        android:layout_width="161dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="8dp"
-        android:onClick="openRegistration"
-        android:text="Register"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button2" />
-
-    <Button
         android:id="@+id/button2"
         android:layout_width="161dp"
         android:layout_height="48dp"

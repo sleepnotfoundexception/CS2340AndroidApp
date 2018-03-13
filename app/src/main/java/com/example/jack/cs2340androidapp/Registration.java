@@ -6,10 +6,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
-import android.util.Patterns;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class Registration extends AppCompatActivity {
 
@@ -27,21 +29,12 @@ public class Registration extends AppCompatActivity {
 
     public void createUser (View view) {
         EditText namefield = findViewById(R.id.nameField);
-        EditText emailfield = findViewById(R.id.emailField);
         EditText cityfield = findViewById(R.id.cityField);
         EditText phonefield = findViewById(R.id.phoneField);
         String name = namefield.getText().toString();
-        String email = emailfield.getText().toString();
         String city = cityfield.getText().toString();
         String phone = phonefield.getText().toString();
-        boolean validEmail = Patterns.EMAIL_ADDRESS.matcher(email).matches();
-        boolean takenEmail = false;
-        for (User user: User.UserList) {
-            if (user.getEmail().equals(email)) {
-                takenEmail = true;
-            }
-        }
-        if (((phone.length() >= 9 && phone.length() <= 10) || phone.equals("")) && validEmail && !takenEmail) {
+        if (((phone.length() >= 9 && phone.length() <= 10) || phone.equals(""))) {
             CheckBox administrator = findViewById(R.id.Administrator);
             if (administrator.isChecked()) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -73,16 +66,6 @@ public class Registration extends AppCompatActivity {
             } else {
                 createUser(true);
             }
-        } else if (!validEmail) {
-            AlertDialog alertDialog = new AlertDialog.Builder(Registration.this).create();
-            alertDialog.setTitle("Bad Email");
-            alertDialog.setMessage("Email address format is invalid.");
-            alertDialog.show();
-        } else if (takenEmail) {
-            AlertDialog alertDialog = new AlertDialog.Builder(Registration.this).create();
-            alertDialog.setTitle("Account Taken");
-            alertDialog.setMessage("An account already exists with that email.");
-            alertDialog.show();
         } else if ((phone.length() > 10 || phone.length() < 9) && !phone.equals("")) {
             AlertDialog alertDialog = new AlertDialog.Builder(Registration.this).create();
             alertDialog.setTitle("Bad Phone Number");
@@ -93,27 +76,29 @@ public class Registration extends AppCompatActivity {
 
     public void createUser(boolean continueLogin) {
         EditText name = findViewById(R.id.nameField);
-        EditText email = findViewById(R.id.emailField);
         EditText city = findViewById(R.id.cityField);
         EditText phone = findViewById(R.id.phoneField);
-        EditText password = findViewById(R.id.passwordField);
-        EditText passwordReenter = findViewById(R.id.passwordReenterField);
         CheckBox administrator = findViewById(R.id.Administrator);
-        if (password.getText().toString().equals(passwordReenter.getText().toString()) && continueLogin) {
+        if (continueLogin) {
             User user = new User(
                     name.getText().toString(),
                     city.getText().toString(),
-                    email.getText().toString(),
+                    MainScreen.activeUser.getEmail(),
                     phone.getText().toString(),
-                    password.getText().toString(),
                     administrator.isChecked());
-            Intent intent = new Intent(Registration.this, login.class);
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference ref = database.getReference("users");
+            ref.child(MainScreen.activeUser.getUid()).child("name").setValue(user.getName());
+            ref.child(MainScreen.activeUser.getUid()).child("city").setValue(user.getCity());
+            ref.child(MainScreen.activeUser.getUid()).child("phone").setValue(user.getPhoneNumber());
+            if (user.isAdministrator()) {
+                ref.child(MainScreen.activeUser.getUid()).child("admin").setValue("true");
+            } else {
+                ref.child(MainScreen.activeUser.getUid()).child("admin").setValue("true");
+            }
+            Intent intent = new Intent(Registration.this, Application.class);
             startActivity(intent);
-        } else if (!password.getText().toString().equals(passwordReenter.getText().toString())) {
-            AlertDialog alertDialog = new AlertDialog.Builder(Registration.this).create();
-            alertDialog.setTitle("Bad Passwords");
-            alertDialog.setMessage("Passwords do not match.");
-            alertDialog.show();
+
         }
         if (!continueLogin){
             AlertDialog alertDialog = new AlertDialog.Builder(Registration.this).create();

@@ -16,15 +16,13 @@ public class User {
     private String city;
     private String email;
     private String phoneNumber;
-    private String password;
     private boolean administrator;
 
-    public User(String name, String city, String email, String phoneNumber, String password, boolean administrator) {
+    public User(String name, String city, String email, String phoneNumber, boolean administrator) {
         this.name = name;
         this.city = city;
         this.email = email;
         this.phoneNumber = phoneNumber;
-        this.password = password;
         this.administrator = administrator;
         UserList.add(this);
         MainScreen.saveUserList();
@@ -60,14 +58,6 @@ public class User {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public boolean isAdministrator() {

@@ -32,7 +32,7 @@ public class login extends AppCompatActivity {
         EditText password = findViewById(R.id.passwordInput);
         boolean matches = false;
         for (User user: User.UserList) {
-            if (user.getEmail().equals(username.getText().toString()) && user.getPassword().equals(password.getText().toString())) {
+            if (user.getEmail().equals(username.getText().toString())) {
                 matches = true;
                 loggedUser = user;
             }
