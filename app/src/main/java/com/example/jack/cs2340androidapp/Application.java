@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
@@ -128,6 +129,7 @@ public class Application extends AppCompatActivity {
     }
 
     public void logout(View view) {
+        AuthUI.getInstance().signOut(this);
         FirebaseAuth.getInstance().signOut();
         Intent intent = new Intent(Application.this, MainScreen.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
