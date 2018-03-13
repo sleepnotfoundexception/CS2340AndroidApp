@@ -10,14 +10,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-<<<<<<< HEAD
 import com.google.firebase.auth.FirebaseAuth;
-=======
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
->>>>>>> 861b23d07c778c4106adc8d8bddfc163a4727a2a
 
 public class Application extends AppCompatActivity {
 
