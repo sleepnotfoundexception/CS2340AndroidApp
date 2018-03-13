@@ -130,6 +130,9 @@ public class Application extends AppCompatActivity {
     public void logout(View view) {
         FirebaseAuth.getInstance().signOut();
         Intent intent = new Intent(Application.this, MainScreen.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 
