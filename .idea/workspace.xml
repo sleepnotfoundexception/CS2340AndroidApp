@@ -7,17 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="63610d43-71c0-4e1f-bed1-fab2df42372e" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.lock" afterPath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/javaCompile/classAnalysis.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/javaCompile/classAnalysis.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/javaCompile/javaCompile.lock" afterPath="$PROJECT_DIR$/.gradle/4.1/javaCompile/javaCompile.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/javaCompile/taskHistory.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/javaCompile/taskHistory.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/taskHistory/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/taskHistory/fileSnapshots.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.lock" afterPath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/jack/cs2340androidapp/Application.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/jack/cs2340androidapp/Application.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_application.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_application.xml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -47,8 +37,8 @@
       <file leaf-file-name="Application.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/jack/cs2340androidapp/Application.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="431">
-              <caret line="232" column="134" lean-forward="false" selection-start-line="232" selection-start-column="134" selection-end-line="232" selection-end-column="134" />
+            <state relative-caret-position="414">
+              <caret line="231" column="35" lean-forward="false" selection-start-line="231" selection-start-column="35" selection-end-line="231" selection-end-column="35" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#5817#6044#0" expanded="true" />
@@ -59,10 +49,10 @@
                 <element signature="e#9027#9028#0" expanded="true" />
                 <element signature="e#9957#10163#0" expanded="true" />
                 <element signature="e#10162#10163#0" expanded="true" />
-                <element signature="e#10636#11449#0" expanded="true" />
-                <element signature="e#11448#11449#0" expanded="true" />
-                <element signature="e#11521#11719#0" expanded="true" />
-                <element signature="e#11718#11719#0" expanded="true" />
+                <element signature="e#10636#11457#0" expanded="true" />
+                <element signature="e#11456#11457#0" expanded="true" />
+                <element signature="e#11529#11727#0" expanded="true" />
+                <element signature="e#11726#11727#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -2192,7 +2182,7 @@
       <option name="ACTIVITY_CLASS" value="" />
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1520994132471" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1520994363765" />
       </method>
     </configuration>
     <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Instrumented Tests">
@@ -2240,7 +2230,7 @@
       </Profilers>
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1520994132471" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1520994363765" />
       </method>
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -2423,7 +2413,7 @@
       <option name="ACTIVITY_CLASS" value="" />
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1520994132472" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1520994363765" />
       </method>
     </configuration>
     <list size="1">
@@ -2495,7 +2485,7 @@
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.40245202" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32900432" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32900432" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32900432" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="true" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18123667" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -2580,10 +2570,10 @@
             <element signature="e#9027#9028#0" expanded="true" />
             <element signature="e#9957#10163#0" expanded="true" />
             <element signature="e#10162#10163#0" expanded="true" />
-            <element signature="e#10636#11449#0" expanded="true" />
-            <element signature="e#11448#11449#0" expanded="true" />
-            <element signature="e#11521#11719#0" expanded="true" />
-            <element signature="e#11718#11719#0" expanded="true" />
+            <element signature="e#10636#11457#0" expanded="true" />
+            <element signature="e#11456#11457#0" expanded="true" />
+            <element signature="e#11529#11727#0" expanded="true" />
+            <element signature="e#11726#11727#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2675,10 +2665,10 @@
             <element signature="e#9027#9028#0" expanded="true" />
             <element signature="e#9957#10163#0" expanded="true" />
             <element signature="e#10162#10163#0" expanded="true" />
-            <element signature="e#10636#11449#0" expanded="true" />
-            <element signature="e#11448#11449#0" expanded="true" />
-            <element signature="e#11521#11719#0" expanded="true" />
-            <element signature="e#11718#11719#0" expanded="true" />
+            <element signature="e#10636#11457#0" expanded="true" />
+            <element signature="e#11456#11457#0" expanded="true" />
+            <element signature="e#11529#11727#0" expanded="true" />
+            <element signature="e#11726#11727#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2759,10 +2749,10 @@
             <element signature="e#9027#9028#0" expanded="true" />
             <element signature="e#9957#10163#0" expanded="true" />
             <element signature="e#10162#10163#0" expanded="true" />
-            <element signature="e#10636#11449#0" expanded="true" />
-            <element signature="e#11448#11449#0" expanded="true" />
-            <element signature="e#11521#11719#0" expanded="true" />
-            <element signature="e#11718#11719#0" expanded="true" />
+            <element signature="e#10636#11457#0" expanded="true" />
+            <element signature="e#11456#11457#0" expanded="true" />
+            <element signature="e#11529#11727#0" expanded="true" />
+            <element signature="e#11726#11727#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -3019,8 +3009,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/jack/cs2340androidapp/Application.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="431">
-          <caret line="232" column="134" lean-forward="false" selection-start-line="232" selection-start-column="134" selection-end-line="232" selection-end-column="134" />
+        <state relative-caret-position="414">
+          <caret line="231" column="35" lean-forward="false" selection-start-line="231" selection-start-column="35" selection-end-line="231" selection-end-column="35" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#5817#6044#0" expanded="true" />
@@ -3031,10 +3021,10 @@
             <element signature="e#9027#9028#0" expanded="true" />
             <element signature="e#9957#10163#0" expanded="true" />
             <element signature="e#10162#10163#0" expanded="true" />
-            <element signature="e#10636#11449#0" expanded="true" />
-            <element signature="e#11448#11449#0" expanded="true" />
-            <element signature="e#11521#11719#0" expanded="true" />
-            <element signature="e#11718#11719#0" expanded="true" />
+            <element signature="e#10636#11457#0" expanded="true" />
+            <element signature="e#11456#11457#0" expanded="true" />
+            <element signature="e#11529#11727#0" expanded="true" />
+            <element signature="e#11726#11727#0" expanded="true" />
           </folding>
         </state>
       </provider>

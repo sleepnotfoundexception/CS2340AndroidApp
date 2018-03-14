@@ -228,10 +228,10 @@ public class Application extends AppCompatActivity {
                     MainScreen.userData.save();
                     sInnerClassWrapper.setVacancies(sInnerClassWrapper.getVacancies() - numberPicker.getValue());
                     sInnerClassWrapper.save();
+                    Snackbar claimed = Snackbar.make(findViewById(R.id.coordinatorLayout), "Claimed " + numberPicker.getValue() + " bed(s).", Snackbar.LENGTH_LONG);
+                    claimed.show();
                 }
                 alertDialog.cancel();
-                Snackbar claimed = Snackbar.make(findViewById(R.id.coordinatorLayout), "Claimed " + numberPicker.getValue() + " bed(s).", Snackbar.LENGTH_LONG);
-                claimed.show();
             }
         });
         alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel", new DialogInterface.OnClickListener() {
