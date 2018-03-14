@@ -1,5 +1,8 @@
 package com.example.jack.cs2340androidapp;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,12 +27,13 @@ public class ShelterModel {
 class Shelter {
 
     private String name;
-    private String Capacity;
+    private String capacity;
     private double latitude;
     private double longitude;
     private String phonenumber;
     private String restrictions;
     private String specialnotes;
+    private int vacancies;
     private int uniqueKey;
 
     @Override
@@ -46,11 +50,11 @@ class Shelter {
     }
 
     public String getCapacity() {
-        return Capacity;
+        return capacity;
     }
 
     public void setCapacity(String capacity) {
-        Capacity = capacity;
+        this.capacity = capacity;
     }
 
     public double getLatitude() {
@@ -99,5 +103,28 @@ class Shelter {
 
     public void setUniqueKey(int uniqueKey) {
         this.uniqueKey = uniqueKey;
+    }
+
+    public int getVacancies() {
+        return vacancies;
+    }
+
+    public void setVacancies(int vacancies) {
+        this.vacancies = vacancies;
+    }
+
+    public void save() {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final DatabaseReference ref = database.getReference("shelters");
+        ref.child(this.name).setValue(name);
+        ref.child(this.name).child("Vacancies").setValue(vacancies);
+        ref.child(this.name).child("Unique Key").setValue(""+uniqueKey);
+        ref.child(this.name).child("Special Notes").setValue(specialnotes);
+        ref.child(this.name).child("Restrictions").setValue(restrictions);
+        ref.child(this.name).child("Phone Number").setValue(phonenumber);
+        ref.child(this.name).child("Longitude").setValue(""+longitude);
+        ref.child(this.name).child("Latitude").setValue(""+latitude);
+        ref.child(this.name).child("Capacity").setValue(capacity);
+
     }
 }

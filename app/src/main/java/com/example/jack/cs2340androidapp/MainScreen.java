@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Pair;
 import android.view.View;
 
 import com.firebase.ui.auth.AuthUI;
@@ -86,11 +87,17 @@ public class MainScreen extends AppCompatActivity {
                             String city = map.get(MainScreen.activeUser.getUid()).get("city");
                             String phone = map.get(MainScreen.activeUser.getUid()).get("phone");
                             String admin = map.get(MainScreen.activeUser.getUid()).get("admin");
+                            Pair<Integer, Integer> reservation = null;
+                            if (map.get(MainScreen.activeUser.getUid()).get("Reservation") != null) {
+                                HashMap<String, Long> reservationMap = (HashMap<String, Long>)dataSnapshot.child(MainScreen.activeUser.getUid()).child("Reservation").getValue();
+                                reservation = new Pair((int)(long)(Long)reservationMap.get("first"), (int)(long)(Long)reservationMap.get("second"));
+                            }
                             boolean isAdmin = false;
                             if (admin != null && admin.equals("true")) {
                                 isAdmin = true;
                             }
                             userData = new User(name, city, MainScreen.activeUser.getEmail(), phone, isAdmin);
+                            userData.setReservation(reservation);
                             Intent moveToApp = new Intent(MainScreen.this, Application.class);
                             moveToApp.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                             moveToApp.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

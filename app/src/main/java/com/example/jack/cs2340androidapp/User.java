@@ -1,9 +1,24 @@
 package com.example.jack.cs2340androidapp;
 
 
+import android.util.Pair;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 /**
  * Created by Jack on 2/20/18.
  */
+
+
+
+//WARNING WARNING WARNING WARNING
+//WARNING WARNING WARNING WARNING
+//WARNING WARNING WARNING WARNING
+//WARNING WARNING WARNING WARNING
+
+    //This class will always save data to the active user.
+
 
 public class User {
 
@@ -12,6 +27,8 @@ public class User {
     private String email;
     private String phoneNumber;
     private boolean administrator;
+    //first int: ID, second int: beds
+    private Pair<Integer,Integer> reservation;
 
     public User(String name, String city, String email, String phoneNumber, boolean administrator) {
         this.name = name;
@@ -59,5 +76,20 @@ public class User {
 
     public void setAdministrator(boolean administrator) {
         this.administrator = administrator;
+    }
+
+    public Pair<Integer, Integer> getReservation() {
+        return reservation;
+    }
+
+    public void setReservation(Pair<Integer, Integer> reservation) {
+        this.reservation = reservation;
+    }
+
+    public void save() {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final DatabaseReference ref = database.getReference("users");
+        //hacky
+        ref.child(MainScreen.activeUser.getUid()).child("Reservation").setValue(reservation);
     }
 }
