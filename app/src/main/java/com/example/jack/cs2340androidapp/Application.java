@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Pair;
 import android.view.View;
@@ -154,6 +155,8 @@ public class Application extends AppCompatActivity {
                 public void onClick(DialogInterface dialogInterface, int i) {
                     reservedShelterInner.setVacancies(reservedShelterInner.getVacancies() + MainScreen.userData.getReservation().second);
                     reservedShelterInner.save();
+                    Snackbar claimed = Snackbar.make(findViewById(R.id.coordinatorLayout), "Released " +MainScreen.userData.getReservation().second + " bed(s).", Snackbar.LENGTH_LONG);
+                    claimed.show();
                     MainScreen.userData.setReservation(null);
                     MainScreen.userData.save();
                     alertDialog.cancel();
@@ -177,6 +180,8 @@ public class Application extends AppCompatActivity {
                 public void onClick(DialogInterface dialogInterface, int i) {
                     sInnerClassWrapper.setVacancies(sInnerClassWrapper.getVacancies() + MainScreen.userData.getReservation().second);
                     sInnerClassWrapper.save();
+                    Snackbar claimed = Snackbar.make(findViewById(R.id.coordinatorLayout), "Released " +MainScreen.userData.getReservation().second + " bed(s).", Snackbar.LENGTH_LONG);
+                    claimed.show();
                     MainScreen.userData.setReservation(null);
                     MainScreen.userData.save();
                     alertDialog.cancel();
@@ -225,6 +230,8 @@ public class Application extends AppCompatActivity {
                     sInnerClassWrapper.save();
                 }
                 alertDialog.cancel();
+                Snackbar claimed = Snackbar.make(findViewById(R.id.coordinatorLayout), "Claimed " + numberPicker.getValue() + " bed(s).", Snackbar.LENGTH_LONG);
+                claimed.show();
             }
         });
         alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel", new DialogInterface.OnClickListener() {
