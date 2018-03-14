@@ -217,7 +217,7 @@ public class Application extends AppCompatActivity {
         final AlertDialog alertDialog = new AlertDialog.Builder(Application.this).create();
         alertDialog.setTitle("Claim Beds");
         final NumberPicker numberPicker = new NumberPicker(Application.this);
-        numberPicker.setMaxValue(Integer.parseInt(s.getCapacity()));
+        numberPicker.setMaxValue(s.getVacancies());
         numberPicker.setMinValue(0);
         alertDialog.setView(numberPicker);
         alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Claim", new DialogInterface.OnClickListener() {
