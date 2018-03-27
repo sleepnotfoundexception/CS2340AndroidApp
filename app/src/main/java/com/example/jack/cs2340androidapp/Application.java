@@ -8,9 +8,6 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentActivity;
 import android.util.Pair;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 
@@ -18,7 +15,10 @@ import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -28,7 +28,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-public class Application extends FragmentActivity implements OnMapReadyCallback {
+public class Application extends FragmentActivity implements
+        GoogleMap.OnMarkerClickListener,
+        OnMapReadyCallback
+{
 
     private static String[] filter = {"", "", ""};
 
@@ -41,24 +44,60 @@ public class Application extends FragmentActivity implements OnMapReadyCallback 
     }
 
     private GoogleMap mMap;
+    private static boolean firebaseChange = false;
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        // Add a marker in Sydney, Australia, and move the camera.
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        List<Shelter> shelters = getFilteredShelters();
+        double minLati = 500, maxLati = -500;
+        double minLngi = 500, maxLngi = -500;
+        for (Shelter s: shelters) {
+            maxLngi = (s.getLongitude() > maxLngi) ? s.getLongitude() : maxLngi;
+            minLngi = (s.getLongitude() < minLngi) ? s.getLongitude() : minLngi;
+            maxLati = (s.getLatitude() > maxLati) ? s.getLatitude() : maxLati;
+            minLati = (s.getLatitude() < minLati) ? s.getLatitude() : minLati;
+            Marker mark = mMap.addMarker(new MarkerOptions()
+                    .position(new LatLng(s.getLatitude(), s.getLongitude()))
+                    .title(s.getName()));
+            mark.setTag(s);
+        }
+        final double minLng = minLngi;
+        final double maxLng = maxLngi;
+        final double minLat = minLati;
+        final double maxLat = maxLati;
+        if (firebaseChange) {
+            mMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
+                @Override
+                public void onMapLoaded() {
+                    LatLngBounds BOUNDS = new LatLngBounds(
+                            new LatLng(minLat, minLng), new LatLng(maxLat, maxLng));
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(BOUNDS, 50));
+                    firebaseChange = false;
+                }
+            });
+        } else {
+            LatLngBounds BOUNDS = new LatLngBounds(
+                    new LatLng(minLat, minLng), new LatLng(maxLat, maxLng));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(BOUNDS, 50));
+        }
+        mMap.setOnMarkerClickListener(this);
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_application);
-        /*SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);*/
+    public boolean onMarkerClick(final Marker marker) {
+
+        // Retrieve the data from the marker.
+        Shelter s = (Shelter) marker.getTag();
+        showAlertDialog(s);
+
+        // Return false to indicate that we have not consumed the event and that we wish
+        // for the default behavior to occur (which is for the camera to move such that the
+        // marker is centered and for the marker's info window to open, if it has one).
+        return false;
+    }
+
+    public List<Shelter> getFilteredShelters () {
         List<Shelter> shelters = ShelterModel.getShelters();
         List<Shelter> filteredShelters = new ArrayList<Shelter>();
         for (Shelter s: shelters) {
@@ -111,23 +150,16 @@ public class Application extends FragmentActivity implements OnMapReadyCallback 
                 filteredShelters.add(s);
             }
         }
-        ArrayAdapter<Shelter> itemsAdapter =
-                new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, filteredShelters);
-        ListView shelterList = (ListView) findViewById(R.id.ShelterList);
-        shelterList.setAdapter(itemsAdapter);
-        shelterList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position,
-                                    long id) {
-                String item = ((TextView)view).getText().toString();
-                for (Shelter s: ShelterModel.getShelters()) {
-                    if (s.getName().equals(item)) {
-                        showAlertDialog(s);
-                    }
-                }
+        return filteredShelters;
+    }
 
-            }
-        });
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_application);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
 
         if (MainScreen.userData.isAdministrator()) {
             TextView administrator = findViewById(R.id.adminConfirmation);
@@ -155,6 +187,7 @@ public class Application extends FragmentActivity implements OnMapReadyCallback 
 
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
+                    firebaseChange = true;
                     claimBeds(sInnerClassWrapper);
                 }
             });
@@ -174,6 +207,7 @@ public class Application extends FragmentActivity implements OnMapReadyCallback 
 
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
+                    firebaseChange = true;
                     reservedShelterInner.setVacancies(reservedShelterInner.getVacancies() + MainScreen.userData.getReservation().second);
                     reservedShelterInner.save();
                     Snackbar claimed = Snackbar.make(findViewById(R.id.coordinatorLayout), "Released " +MainScreen.userData.getReservation().second + " bed(s).", Snackbar.LENGTH_LONG);
@@ -199,6 +233,7 @@ public class Application extends FragmentActivity implements OnMapReadyCallback 
 
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
+                    firebaseChange = true;
                     sInnerClassWrapper.setVacancies(sInnerClassWrapper.getVacancies() + MainScreen.userData.getReservation().second);
                     sInnerClassWrapper.save();
                     Snackbar claimed = Snackbar.make(findViewById(R.id.coordinatorLayout), "Released " +MainScreen.userData.getReservation().second + " bed(s).", Snackbar.LENGTH_LONG);
