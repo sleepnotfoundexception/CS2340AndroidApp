@@ -24,7 +24,8 @@ dependencies {
     compile 'com.google.firebase:firebase-database:11.8.0'
     compile 'com.google.android.gms:play-services-maps:11.8.0'
     compile 'com.firebaseui:firebase-ui-auth:3.2.2'
-    compile('com.facebook.android:facebook-android-sdk:4.27.0')
+    compile('com.facebook.android:f' +
+            'acebook-android-sdk:4.27.0')
     compile("com.twitter.sdk.android:twitter-core:3.0.0@aar") { transitive = true }
 
     compile 'com.google.android.gms:play-services-auth:11.8.0'
