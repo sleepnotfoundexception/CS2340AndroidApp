@@ -7,6 +7,21 @@
     tools:context="com.example.jack.cs2340androidapp.Registration">
 
     <EditText
+        android:id="@+id/nameField"
+        android:layout_width="0dp"
+        android:layout_height="44dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:hint="Name"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+    <EditText
         android:id="@+id/cityField"
         android:layout_width="0dp"
         android:layout_height="44dp"
@@ -17,23 +32,9 @@
         android:hint="City"
         android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nameField" />
-
-    <EditText
-        android:id="@+id/nameField"
-        android:layout_width="0dp"
-        android:layout_height="44dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="68dp"
-        android:ems="10"
-        android:hint="Name"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/nameField" />
 
     <EditText
         android:id="@+id/phoneField"
@@ -56,7 +57,7 @@
         android:layout_marginEnd="147dp"
         android:layout_marginStart="147dp"
         android:layout_marginTop="8dp"
-        android:text="Administrator"
+        android:text="Register as Administrator (password required)"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/phoneField" />
@@ -111,7 +112,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:gravity="center"
-        android:text="It looks like you are a new user. Please fill out our registration form."
+        android:text="It looks like you are a new user. Please enter some additional information for our records."
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

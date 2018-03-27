@@ -17,7 +17,7 @@ import java.util.List;
 public class FirebaseHandler {
     public FirebaseHandler() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference("shelters");
+        final DatabaseReference ref = database.getReference("shelters");
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -38,9 +38,12 @@ public class FirebaseHandler {
                         tempShelter.setPhonenumber(params.get("Phone Number"));
                         tempShelter.setRestrictions(params.get("Restrictions"));
                         tempShelter.setSpecialnotes(params.get("Special Notes"));
+                        tempShelter.setVacancies(((int)(long)(Long)dataSnapshot.child(name).child("Vacancies").getValue()));
                         tempShelter.setUniqueKey(Integer.parseInt(params.get("Unique Key")));
                         newShelterList.add(tempShelter);
-                    } catch (Exception e) {}
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
                 ShelterModel.setShelters(newShelterList);
             }

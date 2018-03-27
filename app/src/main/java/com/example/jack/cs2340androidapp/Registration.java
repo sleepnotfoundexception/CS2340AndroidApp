@@ -23,15 +23,21 @@ public class Registration extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
+        EditText cityfield = findViewById(R.id.cityField);
+        EditText phonefield = findViewById(R.id.phoneField);
+        if (MainScreen.activeUser.getPhoneNumber() != null) {
+            phonefield.setText(MainScreen.activeUser.getPhoneNumber().substring(2));
+        }
         EditText namefield = findViewById(R.id.nameField);
+        if (MainScreen.activeUser.getDisplayName() != null) {
+            namefield.setText(MainScreen.activeUser.getDisplayName());
+        }
         namefield.requestFocus();
     }
 
     public void createUser (View view) {
-        EditText namefield = findViewById(R.id.nameField);
         EditText cityfield = findViewById(R.id.cityField);
         EditText phonefield = findViewById(R.id.phoneField);
-        String name = namefield.getText().toString();
         String city = cityfield.getText().toString();
         String phone = phonefield.getText().toString();
         if (((phone.length() >= 9 && phone.length() <= 10) || phone.equals(""))) {
@@ -75,13 +81,13 @@ public class Registration extends AppCompatActivity {
     }
 
     public void createUser(boolean continueLogin) {
-        EditText name = findViewById(R.id.nameField);
         EditText city = findViewById(R.id.cityField);
         EditText phone = findViewById(R.id.phoneField);
+        EditText namefield = findViewById(R.id.nameField);
         CheckBox administrator = findViewById(R.id.Administrator);
         if (continueLogin) {
             User user = new User(
-                    name.getText().toString(),
+                    namefield.getText().toString(),
                     city.getText().toString(),
                     MainScreen.activeUser.getEmail(),
                     phone.getText().toString(),
@@ -94,7 +100,7 @@ public class Registration extends AppCompatActivity {
             if (user.isAdministrator()) {
                 ref.child(MainScreen.activeUser.getUid()).child("admin").setValue("true");
             } else {
-                ref.child(MainScreen.activeUser.getUid()).child("admin").setValue("true");
+                ref.child(MainScreen.activeUser.getUid()).child("admin").setValue("false");
             }
             Intent intent = new Intent(Registration.this, Application.class);
             startActivity(intent);

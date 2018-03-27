@@ -1,15 +1,20 @@
 package com.example.jack.cs2340androidapp;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentActivity;
+import android.util.Pair;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.NumberPicker;
 import android.widget.TextView;
 
+import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -117,17 +122,7 @@ public class Application extends FragmentActivity implements OnMapReadyCallback 
                 String item = ((TextView)view).getText().toString();
                 for (Shelter s: ShelterModel.getShelters()) {
                     if (s.getName().equals(item)) {
-                        AlertDialog alertDialog = new AlertDialog.Builder(Application.this).create();
-                        alertDialog.setTitle(item);
-                        String message = "";
-                        message += s.getPhonenumber() + "\n";
-                        message += "Capacity: " + s.getCapacity() + "\n";
-                        message += "Restrictions: " + s.getRestrictions() + "\n\n";
-                        message += "Latitude: " + s.getLatitude() + "\n";
-                        message += "Longitude: " + s.getLongitude() + "\n\n";
-                        message += s.getSpecialnotes();
-                        alertDialog.setMessage(message);
-                        alertDialog.show();
+                        showAlertDialog(s);
                     }
                 }
 
@@ -143,12 +138,139 @@ public class Application extends FragmentActivity implements OnMapReadyCallback 
         }
     }
 
+    public void showAlertDialog(Shelter s) {
+        final AlertDialog alertDialog = new AlertDialog.Builder(Application.this).create();
+        alertDialog.setTitle(s.getName());
+        String message = "";
+        message += s.getPhonenumber() + "\n";
+        message += "Capacity: " + s.getCapacity() + "\n";
+        message += "Restrictions: " + s.getRestrictions() + "\n\n";
+        message += "Latitude: " + s.getLatitude() + "\n";
+        message += "Longitude: " + s.getLongitude() + "\n\n";
+        message += s.getSpecialnotes();
+        message += "\n\nVacancies: " + s.getVacancies();
+        final Shelter sInnerClassWrapper = s;
+        if (MainScreen.userData.getReservation() == null) {
+            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Claim Beds", new DialogInterface.OnClickListener() {
+
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    claimBeds(sInnerClassWrapper);
+                }
+            });
+        } else if (!(MainScreen.userData.getReservation().first == s.getUniqueKey())) {
+            //reservation does not exist at this shelter
+            String reservedShelterName = "";
+            Shelter reservedShelter = null;
+            for (Shelter s2: ShelterModel.getShelters()) {
+                if (s2.getUniqueKey() == MainScreen.userData.getReservation().first) {
+                    reservedShelterName = s2.getName();
+                    reservedShelter = s2;
+                }
+            }
+            final Shelter reservedShelterInner = reservedShelter;
+            message += "\n\nReserved beds: " + MainScreen.userData.getReservation().second + " at " + reservedShelterName;
+            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Release Beds", new DialogInterface.OnClickListener() {
+
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    reservedShelterInner.setVacancies(reservedShelterInner.getVacancies() + MainScreen.userData.getReservation().second);
+                    reservedShelterInner.save();
+                    Snackbar claimed = Snackbar.make(findViewById(R.id.coordinatorLayout), "Released " +MainScreen.userData.getReservation().second + " bed(s).", Snackbar.LENGTH_LONG);
+                    claimed.show();
+                    MainScreen.userData.setReservation(null);
+                    MainScreen.userData.save();
+                    alertDialog.cancel();
+                }
+            });
+        } else if (MainScreen.userData.getReservation().first == s.getUniqueKey()) {
+            //Reservation exists at this shelter
+            String reservedShelterName = "";
+            Shelter reservedShelter = null;
+            for (Shelter s2: ShelterModel.getShelters()) {
+                if (s2.getUniqueKey() == MainScreen.userData.getReservation().first) {
+                    reservedShelterName = s2.getName();
+                    reservedShelter = s2;
+                }
+            }
+            final Shelter reservedShelterInner = reservedShelter;
+            message += "\n\nReserved beds: " + MainScreen.userData.getReservation().second;
+            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Release Beds", new DialogInterface.OnClickListener() {
+
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    sInnerClassWrapper.setVacancies(sInnerClassWrapper.getVacancies() + MainScreen.userData.getReservation().second);
+                    sInnerClassWrapper.save();
+                    Snackbar claimed = Snackbar.make(findViewById(R.id.coordinatorLayout), "Released " +MainScreen.userData.getReservation().second + " bed(s).", Snackbar.LENGTH_LONG);
+                    claimed.show();
+                    MainScreen.userData.setReservation(null);
+                    MainScreen.userData.save();
+                    alertDialog.cancel();
+                }
+            });
+        }
+        alertDialog.setMessage(message);
+        alertDialog.show();
+    }
+
+    public void claimBeds(Shelter s) {
+        //Create another of the original dialog to return to after finishing
+        final AlertDialog originalDialog = new AlertDialog.Builder(Application.this).create();
+        originalDialog.setTitle(s.getName());
+        String message = "";
+        message += s.getPhonenumber() + "\n";
+        message += "Capacity: " + s.getCapacity() + "\n";
+        message += "Restrictions: " + s.getRestrictions() + "\n\n";
+        message += "Latitude: " + s.getLatitude() + "\n";
+        message += "Longitude: " + s.getLongitude() + "\n\n";
+        message += s.getSpecialnotes();
+        message += "\n\nVacancies: " + s.getVacancies();
+        originalDialog.setMessage(message);
+        final Shelter sInnerClassWrapper = s;
+        originalDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Claim Beds", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                claimBeds(sInnerClassWrapper);
+            }
+        });
+
+        //Build the claim beds dialog
+        final AlertDialog alertDialog = new AlertDialog.Builder(Application.this).create();
+        alertDialog.setTitle("Claim Beds");
+        final NumberPicker numberPicker = new NumberPicker(Application.this);
+        numberPicker.setMaxValue(s.getVacancies());
+        numberPicker.setMinValue(0);
+        alertDialog.setView(numberPicker);
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Claim", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                if (numberPicker.getValue() != 0) {
+                    MainScreen.userData.setReservation(new Pair<Integer, Integer>(sInnerClassWrapper.getUniqueKey(), numberPicker.getValue()));
+                    MainScreen.userData.save();
+                    sInnerClassWrapper.setVacancies(sInnerClassWrapper.getVacancies() - numberPicker.getValue());
+                    sInnerClassWrapper.save();
+                    Snackbar claimed = Snackbar.make(findViewById(R.id.coordinatorLayout), "Claimed " + numberPicker.getValue() + " bed(s).", Snackbar.LENGTH_LONG);
+                    claimed.show();
+                }
+                alertDialog.cancel();
+            }
+        });
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                originalDialog.show();
+            }
+        });
+        alertDialog.show();
+    }
+
     public void filter(View view) {
         Intent moveToFilter = new Intent(Application.this, Filter.class);
         startActivity(moveToFilter);
     }
 
     public void logout(View view) {
+        AuthUI.getInstance().signOut(this);
         FirebaseAuth.getInstance().signOut();
         Intent intent = new Intent(Application.this, MainScreen.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
