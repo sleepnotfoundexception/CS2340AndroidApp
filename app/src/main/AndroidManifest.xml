@@ -21,6 +21,12 @@
         <activity android:name=".Application" />
         <activity android:name=".Registration" />
         <activity android:name=".Filter"></activity>
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCZzhbOA-TuhWgxqT82d-8Kx7c8ggppK1k" />
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
     </application>
 
 </manifest>
