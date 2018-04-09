@@ -54,7 +54,7 @@ public class Application extends FragmentActivity implements
     }
 
     private GoogleMap mMap;
-    private static boolean firebaseChange = false;
+    private boolean firebaseChange = false;
 
     @Override
     /*
@@ -127,7 +127,7 @@ public class Application extends FragmentActivity implements
     @return Filtered List<Shelter> of shelters.
      */
     private List<Shelter> getFilteredShelters () {
-        List<Shelter> shelters = ShelterModel.getShelters();
+        List<Shelter> shelters = Shelter.getShelters();
         List<Shelter> filteredShelters = new ArrayList<>();
         for (Shelter s: shelters) {
             if (runFilters(s)) {
@@ -186,7 +186,7 @@ public class Application extends FragmentActivity implements
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        if (MainScreen.userData.isAdministrator()) {
+        if (FirebaseHandler.getUserData().isAdministrator()) {
             TextView administrator = findViewById(R.id.adminConfirmation);
             administrator.setVisibility(View.VISIBLE);
         } else {
@@ -207,7 +207,7 @@ public class Application extends FragmentActivity implements
         message += s.getSpecialNotes();
         message += "\n\nVacancies: " + s.getVacancies();
         final Shelter sInnerClassWrapper = s;
-        if (MainScreen.userData.getReservation() == null) {
+        if (FirebaseHandler.getUserData().getReservation() == null) {
             alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Claim Beds",
                     new DialogInterface.OnClickListener() {
 
@@ -217,18 +217,18 @@ public class Application extends FragmentActivity implements
                     claimBeds(sInnerClassWrapper);
                 }
             });
-        } else if (!(MainScreen.userData.getReservation().first == s.getUniqueKey())) {
+        } else if (!(FirebaseHandler.getUserData().getReservation().first == s.getUniqueKey())) {
             //reservation does not exist at this shelter
             String reservedShelterName = "";
             Shelter reservedShelter = null;
-            for (Shelter s2: ShelterModel.getShelters()) {
-                if (s2.getUniqueKey() == MainScreen.userData.getReservation().first) {
+            for (Shelter s2: Shelter.getShelters()) {
+                if (s2.getUniqueKey() == FirebaseHandler.getUserData().getReservation().first) {
                     reservedShelterName = s2.getName();
                     reservedShelter = s2;
                 }
             }
             final Shelter reservedShelterInner = reservedShelter;
-            message += "\n\nReserved beds: " + MainScreen.userData.getReservation().second +
+            message += "\n\nReserved beds: " + FirebaseHandler.getUserData().getReservation().second +
                     " at " + reservedShelterName;
             alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Release Beds",
                     new DialogInterface.OnClickListener() {
@@ -238,33 +238,33 @@ public class Application extends FragmentActivity implements
                     firebaseChange = true;
                         assert reservedShelterInner != null;
                         reservedShelterInner.setVacancies(reservedShelterInner.getVacancies() +
-                                MainScreen.userData.getReservation().second);
+                                FirebaseHandler.getUserData().getReservation().second);
                         reservedShelterInner.save();
                     Snackbar claimed = Snackbar.make(findViewById(R.id.coordinatorLayout),
-                            "Released " +MainScreen.userData.getReservation().second +
+                            "Released " + FirebaseHandler.getUserData().getReservation().second +
                                     " bed(s).", Snackbar.LENGTH_LONG);
                     claimed.show();
-                    MainScreen.userData.setReservation(null);
-                    MainScreen.userData.save();
+                    FirebaseHandler.getUserData().setReservation(null);
+                    FirebaseHandler.getUserData().save();
                     alertDialog.cancel();
                 }
             });
-        } else if (MainScreen.userData.getReservation().first == s.getUniqueKey()) {
-            message += "\n\nReserved beds: " + MainScreen.userData.getReservation().second;
+        } else if (FirebaseHandler.getUserData().getReservation().first == s.getUniqueKey()) {
+            message += "\n\nReserved beds: " + FirebaseHandler.getUserData().getReservation().second;
             alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Release Beds",
                     new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     firebaseChange = true;
                     sInnerClassWrapper.setVacancies(sInnerClassWrapper.getVacancies() +
-                            MainScreen.userData.getReservation().second);
+                            FirebaseHandler.getUserData().getReservation().second);
                     sInnerClassWrapper.save();
                     Snackbar claimed = Snackbar.make(findViewById(R.id.coordinatorLayout),
-                            "Released " +MainScreen.userData.getReservation().second +
+                            "Released " + FirebaseHandler.getUserData().getReservation().second +
                                     " bed(s).", Snackbar.LENGTH_LONG);
                     claimed.show();
-                    MainScreen.userData.setReservation(null);
-                    MainScreen.userData.save();
+                    FirebaseHandler.getUserData().setReservation(null);
+                    FirebaseHandler.getUserData().save();
                     alertDialog.cancel();
                 }
             });
@@ -308,9 +308,9 @@ public class Application extends FragmentActivity implements
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 if (numberPicker.getValue() != 0) {
-                    MainScreen.userData.setReservation(new Pair<>(sInnerClassWrapper.getUniqueKey(),
+                    FirebaseHandler.getUserData().setReservation(new Pair<>(sInnerClassWrapper.getUniqueKey(),
                             numberPicker.getValue()));
-                    MainScreen.userData.save();
+                    FirebaseHandler.getUserData().save();
                     sInnerClassWrapper.setVacancies(sInnerClassWrapper.getVacancies() -
                             numberPicker.getValue());
                     sInnerClassWrapper.save();

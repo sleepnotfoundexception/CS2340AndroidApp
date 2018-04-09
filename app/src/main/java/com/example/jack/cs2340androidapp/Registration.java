@@ -27,14 +27,14 @@ public class Registration extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
         EditText phoneField = findViewById(R.id.phoneField);
-        if (MainScreen.activeUser.getPhoneNumber() != null) {
-                String phone = MainScreen.activeUser.getPhoneNumber();
+        if (FirebaseHandler.getActiveUser().getPhoneNumber() != null) {
+                String phone = FirebaseHandler.getActiveUser().getPhoneNumber();
                 assert phone != null;
                 phoneField.setText(phone.substring(2));
         }
         EditText nameField = findViewById(R.id.nameField);
-        if (MainScreen.activeUser.getDisplayName() != null) {
-            nameField.setText(MainScreen.activeUser.getDisplayName());
+        if (FirebaseHandler.getActiveUser().getDisplayName() != null) {
+            nameField.setText(FirebaseHandler.getActiveUser().getDisplayName());
         }
         nameField.requestFocus();
     }
@@ -98,12 +98,12 @@ Builds a new user based on the fields entered. Throws an AlertDialog if errors e
             User user = new User(
                     nameField.getText().toString(),
                     city.getText().toString(),
-                    MainScreen.activeUser.getEmail(),
+                    FirebaseHandler.getActiveUser().getEmail(),
                     phone.getText().toString(),
                     administrator.isChecked());
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             DatabaseReference ref = database.getReference("users");
-            String uID = MainScreen.activeUser.getUid();
+            String uID = FirebaseHandler.getActiveUser().getUid();
             DatabaseReference userSnap = ref.child(uID);
             userSnap.child("name").setValue(user.getName());
             userSnap.child("city").setValue(user.getCity());

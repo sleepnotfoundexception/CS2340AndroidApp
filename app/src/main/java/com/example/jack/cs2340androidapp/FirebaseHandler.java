@@ -1,5 +1,7 @@
 package com.example.jack.cs2340androidapp;
 
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -7,14 +9,47 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
  * Fetches data from Firebase.
  */
 public class FirebaseHandler {
+
+    private static FirebaseUser activeUser;
+
+    private static User userData;
+
+    /**
+     * Stores the currently authenticated Firebase user.
+     */
+    public static UserInfo getActiveUser() {
+        return activeUser;
+    }
+
+    /**
+     * Sets the active user to a FirebaseUser
+     * @param activeUser The new FirebaseUser.
+     */
+    public static void setActiveUser(FirebaseUser activeUser) {
+        FirebaseHandler.activeUser = activeUser;
+    }
+
+    /**
+     * Stores the user object associated with the currently authenticated user.
+     */
+    public static User getUserData() {
+        return userData;
+    }
+
+    /**
+     * Sets user data field.
+     */
+    public static void setUserData(User userData) {
+        FirebaseHandler.userData = userData;
+    }
 
     /**
     Loads the Firebase database into the ShelterModel's public global list.
@@ -30,11 +65,10 @@ public class FirebaseHandler {
                 // whenever data at this location is updated.
                 Map<String, HashMap<String, String>> map =
                         (HashMap<String, HashMap<String, String>>)dataSnapshot.getValue();
-                Iterable<String> shelterNames = new ArrayList();
-                try {
-                    shelterNames = new ArrayList<>(map.keySet());
-                } catch (java.lang.NullPointerException e) {}
-                List<Shelter> newShelterList = new ArrayList<>();
+                Iterable<String> shelterNames;
+                assert map != null;
+                shelterNames = new ArrayList<>(map.keySet());
+                Collection<Shelter> newShelterList = new ArrayList<>();
                 for (String name: shelterNames) {
                     try {
                         Shelter tempShelter = new Shelter();
@@ -46,19 +80,17 @@ public class FirebaseHandler {
                         tempShelter.setPhoneNumber(params.get("Phone Number"));
                         tempShelter.setRestrictions(params.get("Restrictions"));
                         tempShelter.setSpecialNotes(params.get("Special Notes"));
-                        Long vacancies = 0L;
-                        try {
-                            vacancies = (Long)dataSnapshot.child(name)
-                                    .child("Vacancies").getValue();
-                        } catch (java.lang.NullPointerException e) {}
-                        tempShelter.setVacancies(((int)(long)vacancies));
+                        Long vacancies = (Long)dataSnapshot.child(name)
+                                .child("Vacancies").getValue();
+                        assert vacancies != null;
+                        tempShelter.setVacancies(((int)vacancies.longValue()));
                         tempShelter.setUniqueKey(Integer.parseInt(params.get("Unique Key")));
                         newShelterList.add(tempShelter);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
-                ShelterModel.setShelters(newShelterList);
+                Shelter.setShelters(newShelterList);
             }
 
             @Override

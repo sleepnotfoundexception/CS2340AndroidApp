@@ -3,9 +3,14 @@ package com.example.jack.cs2340androidapp;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 @SuppressWarnings("ChainedMethodCall")
 class Shelter {
 
+    static List<Shelter> shelters = new ArrayList<>();
     private String name;
     private String capacity;
     private double latitude;
@@ -15,6 +20,23 @@ class Shelter {
     private String specialNotes;
     private int vacancies;
     private int uniqueKey;
+
+    /*
+        Returns the public list of shelters fetched by FirebaseHandler.
+        @return List<Shelter> of all shelters in the database.
+         */
+    public static List<Shelter> getShelters() {
+        return shelters;
+    }
+
+    /*
+        Sets the shelters in the global list. Used by the FirebaseHandler class.
+        @param shelters The new list of shelters to set to.
+         */
+    public static void setShelters(Collection<Shelter> shelters) {
+        Shelter.shelters = new ArrayList<>();
+        Shelter.shelters.addAll(shelters);
+    }
 
     @Override
     public String toString() {

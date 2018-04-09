@@ -99,7 +99,7 @@ public class User {
     public void save() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference ref = database.getReference("users");
-        DatabaseReference snap = ref.child(MainScreen.activeUser.getUid());
+        DatabaseReference snap = ref.child(FirebaseHandler.getActiveUser().getUid());
         snap.child("Reservation").setValue(reservation);
     }
 }
