@@ -73,7 +73,7 @@ public class MainScreen extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 // Successfully signed in
                 final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                FirebaseHandler.setActiveUser(user);
+                FirebaseHandler.activeUser = user;
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                 final DatabaseReference ref = database.getReference("users");
                 ref.addValueEventListener(new ValueEventListener() {
@@ -91,17 +91,18 @@ public class MainScreen extends AppCompatActivity {
                                 startActivity(moveToRegister);
                             } else {
                                 //is returning user
-                                HashMap activeUser = map.get(FirebaseHandler.getActiveUser().getUid());
+                                HashMap activeUser = map.get(FirebaseHandler.activeUser.getUid());
                                 String name = (String)activeUser.get("name");
                                 String city = (String)activeUser.get("city");
                                 String phone = (String)activeUser.get("phone");
                                 String admin = (String)activeUser.get("admin");
                                 Pair<Integer, Integer> reservation = new Pair<>(0, 0);
-                                if (map.get(FirebaseHandler.getActiveUser().getUid()).get("Reservation")
+                                if (map.get(FirebaseHandler.activeUser.getUid()).get("Reservation")
                                         != null) {
                   //Java doesn't have reified generics, so type erasure is inevitable here
                                         DataSnapshot user =
-                                                dataSnapshot.child(FirebaseHandler.getActiveUser().getUid());
+                                                dataSnapshot.child(FirebaseHandler.activeUser
+                                                        .getUid());
                                         DataSnapshot reservationSnap = user.child("Reservation");
                                         HashMap<String, Long> reservationMap =
                                                 (HashMap<String, Long>) reservationSnap.getValue();
@@ -114,9 +115,10 @@ public class MainScreen extends AppCompatActivity {
                                 if ((admin != null) && "true".equals(admin)) {
                                     isAdmin = true;
                                 }
-                                FirebaseHandler.setUserData(new User(name, city, FirebaseHandler.getActiveUser().getEmail(),
-                                        phone, isAdmin));
-                                FirebaseHandler.getUserData().setReservation(reservation);
+                                FirebaseHandler.userData = new User(name, city,
+                                        //FirebaseHandler.activeUser.getEmail(),
+                                        phone, isAdmin);
+                                FirebaseHandler.userData.setReservation(reservation);
                                 Intent moveToApp = new Intent(MainScreen.this,
                                         Application.class);
                                 moveToApp.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);

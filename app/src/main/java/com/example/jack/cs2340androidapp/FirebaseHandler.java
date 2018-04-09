@@ -1,7 +1,6 @@
 package com.example.jack.cs2340androidapp;
 
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserInfo;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -16,40 +15,10 @@ import java.util.Map;
 /**
  * Fetches data from Firebase.
  */
-public class FirebaseHandler {
+class FirebaseHandler {
 
-    private static FirebaseUser activeUser;
-
-    private static User userData;
-
-    /**
-     * Stores the currently authenticated Firebase user.
-     */
-    public static UserInfo getActiveUser() {
-        return activeUser;
-    }
-
-    /**
-     * Sets the active user to a FirebaseUser
-     * @param activeUser The new FirebaseUser.
-     */
-    public static void setActiveUser(FirebaseUser activeUser) {
-        FirebaseHandler.activeUser = activeUser;
-    }
-
-    /**
-     * Stores the user object associated with the currently authenticated user.
-     */
-    public static User getUserData() {
-        return userData;
-    }
-
-    /**
-     * Sets user data field.
-     */
-    public static void setUserData(User userData) {
-        FirebaseHandler.userData = userData;
-    }
+    public static FirebaseUser activeUser;
+    public static User userData;
 
     /**
     Loads the Firebase database into the ShelterModel's public global list.

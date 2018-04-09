@@ -39,24 +39,24 @@ public class Filter extends AppCompatActivity {
     private void ageSpinSetup() {
         String[] ages = new String[] {"All", "Families with Newborns", "Children",
                 "Young Adults", "Anyone"};
-        ArrayAdapter<String> ageadapter = new ArrayAdapter<>(this,
+        ArrayAdapter<String> ageAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item);
-        ageadapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        ageadapter.addAll(ages);
-        Spinner agespin = findViewById(R.id.ages);
-        agespin.setAdapter(ageadapter);
+        ageAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ageAdapter.addAll(ages);
+        Spinner ageSpin = findViewById(R.id.ages);
+        ageSpin.setAdapter(ageAdapter);
         switch (Application.getFilter()[2]) {
             case "Families with Newborns":
-                agespin.setSelection(1);
+                ageSpin.setSelection(1);
                 break;
             case "Children":
-                agespin.setSelection(2);
+                ageSpin.setSelection(2);
                 break;
             case "Young Adults":
-                agespin.setSelection(3);
+                ageSpin.setSelection(3);
                 break;
             case "Anyone":
-                agespin.setSelection(4);
+                ageSpin.setSelection(4);
                 break;
         }
     }

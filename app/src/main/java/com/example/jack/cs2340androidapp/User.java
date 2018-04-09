@@ -33,13 +33,11 @@ public class User {
      * Creates a new user object.
      * @param name The user's name.
      * @param city City of residence.
-     * @param email Email/username.
      * @param phoneNumber Standard 9-10 char phone number.
      * @param administrator Whether or not this user is an admin.
      */
-    public User(String name, String city, String email, String phoneNumber, boolean administrator) {
+    public User(String name, String city, String phoneNumber, boolean administrator) {
         this.name = name;
-        String email1 = email;
         this.city = city;
         this.phoneNumber = phoneNumber;
         this.administrator = administrator;
@@ -99,7 +97,7 @@ public class User {
     public void save() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference ref = database.getReference("users");
-        DatabaseReference snap = ref.child(FirebaseHandler.getActiveUser().getUid());
+        DatabaseReference snap = ref.child(FirebaseHandler.activeUser.getUid());
         snap.child("Reservation").setValue(reservation);
     }
 }

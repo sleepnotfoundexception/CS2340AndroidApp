@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.util.Pair;
 import android.view.View;
 import android.widget.NumberPicker;
@@ -74,9 +75,10 @@ public class Application extends FragmentActivity implements
             minLongitude = (s.getLongitude() < minLongitude) ? s.getLongitude() : minLongitude;
             maxLatitude = (s.getLatitude() > maxLatitude) ? s.getLatitude() : maxLatitude;
             minLatitude = (s.getLatitude() < minLatitude) ? s.getLatitude() : minLatitude;
-            Marker mark = mMap.addMarker(new MarkerOptions()
-                    .position(new LatLng(s.getLatitude(), s.getLongitude()))
-                    .title(s.getName()));
+            MarkerOptions opt = new MarkerOptions();
+            opt.position(new LatLng(s.getLatitude(), s.getLongitude()));
+            opt.title(s.getName());
+            Marker mark = mMap.addMarker(opt);
             mark.setTag(s);
         }
         final double minLng = minLongitude;
@@ -126,7 +128,7 @@ public class Application extends FragmentActivity implements
     Returns a list of shelters with the global filters applied.
     @return Filtered List<Shelter> of shelters.
      */
-    private List<Shelter> getFilteredShelters () {
+    public List<Shelter> getFilteredShelters () {
         List<Shelter> shelters = Shelter.getShelters();
         List<Shelter> filteredShelters = new ArrayList<>();
         for (Shelter s: shelters) {
@@ -137,56 +139,66 @@ public class Application extends FragmentActivity implements
         return filteredShelters;
     }
 
-    private boolean runFilters(Shelter s) {
+    public boolean runFilters(Shelter s) {
         if (!"".equals(filter[0])) {
             if (!runNameFilters(s)) {
                 return false;
             }
         }
+        String restr = s.getRestrictions();
+        String restrLC = restr.toLowerCase();
         return ("".equals(filter[1]) || MFFilter(s)) && ("".equals(filter[2])
                 || "Families with Newborns".equals(filter[2]) ||
-                s.getRestrictions().toLowerCase().contains(filter[2].toLowerCase()))
+                restrLC.contains(filter[2].toLowerCase()))
                 && newbornFilters(s);
     }
 
-    private boolean newbornFilters(Shelter s) {
+    public boolean newbornFilters(Shelter s) {
+        String restr = s.getRestrictions();
+        String restrLC = restr.toLowerCase();
         return !"Families with Newborns".equals(filter[2]) ||
-                s.getRestrictions().toLowerCase().contains(filter[2].toLowerCase()) ||
-                (s.getRestrictions().toLowerCase().contains("families") &&
-                        s.getRestrictions().toLowerCase().contains("newborns"));
+                restrLC.contains(filter[2].toLowerCase()) ||
+                (restrLC.contains("families") &&
+                        restrLC.contains("newborns"));
     }
 
-    private boolean runNameFilters(Shelter s) {
-        String[] namefilters = filter[0].toLowerCase().trim().split(" ");
-        for (String name : namefilters) {
-            if (!s.getName().toLowerCase().contains(name)) {
+    public boolean runNameFilters(Shelter s) {
+        String filter0LC = filter[0].toLowerCase();
+        String filter0LCTrim = filter0LC.trim();
+        String[] nameFilters = filter0LCTrim.split(" ");
+        for (String name : nameFilters) {
+            String sName = s.getName();
+            String sNameLC = sName.toLowerCase();
+            if (!sNameLC.contains(name)) {
                 return false;
             }
         }
         return true;
     }
 
-    private boolean MFFilter(Shelter s) {
+    public boolean MFFilter(Shelter s) {
+        String str = s.getRestrictions();
+        String strLC = str.toLowerCase();
         if ("Female".equals(filter[1])) {
             Pattern p = Pattern.compile("^men| men|^male| male|//men|//male");
-            Matcher m = p.matcher(s.getRestrictions().toLowerCase());
+            Matcher m = p.matcher(str.toLowerCase());
             if (m.find()) {
                 return false;
             }
         }
-        return !"Male".equals(filter[1]) || !s.getRestrictions().toLowerCase().contains("women")
-                && !s.getRestrictions().toLowerCase().contains("female");
+        return (!("Male".equals(filter[1])) || (!strLC.contains("women")
+                && !strLC.contains("female")));
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_application);
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
+        FragmentManager mng = getSupportFragmentManager();
+        SupportMapFragment mapFragment = (SupportMapFragment)mng.findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        if (FirebaseHandler.getUserData().isAdministrator()) {
+        if (FirebaseHandler.userData.isAdministrator()) {
             TextView administrator = findViewById(R.id.adminConfirmation);
             administrator.setVisibility(View.VISIBLE);
         } else {
@@ -196,7 +208,8 @@ public class Application extends FragmentActivity implements
     }
 
     private void showAlertDialog(Shelter s) {
-        final AlertDialog alertDialog = new AlertDialog.Builder(Application.this).create();
+        AlertDialog.Builder builder = new AlertDialog.Builder(Application.this);
+        final AlertDialog alertDialog = builder.create();
         alertDialog.setTitle(s.getName());
         String message = "";
         message += s.getPhoneNumber() + "\n";
@@ -207,7 +220,7 @@ public class Application extends FragmentActivity implements
         message += s.getSpecialNotes();
         message += "\n\nVacancies: " + s.getVacancies();
         final Shelter sInnerClassWrapper = s;
-        if (FirebaseHandler.getUserData().getReservation() == null) {
+        if (FirebaseHandler.userData.getReservation() == null) {
             alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Claim Beds",
                     new DialogInterface.OnClickListener() {
 
@@ -217,18 +230,18 @@ public class Application extends FragmentActivity implements
                     claimBeds(sInnerClassWrapper);
                 }
             });
-        } else if (!(FirebaseHandler.getUserData().getReservation().first == s.getUniqueKey())) {
+        } else if (!(FirebaseHandler.userData.getReservation().first == s.getUniqueKey())) {
             //reservation does not exist at this shelter
             String reservedShelterName = "";
             Shelter reservedShelter = null;
             for (Shelter s2: Shelter.getShelters()) {
-                if (s2.getUniqueKey() == FirebaseHandler.getUserData().getReservation().first) {
+                if (s2.getUniqueKey() == FirebaseHandler.userData.getReservation().first) {
                     reservedShelterName = s2.getName();
                     reservedShelter = s2;
                 }
             }
             final Shelter reservedShelterInner = reservedShelter;
-            message += "\n\nReserved beds: " + FirebaseHandler.getUserData().getReservation().second +
+            message += "\n\nReserved beds: " + FirebaseHandler.userData.getReservation().second +
                     " at " + reservedShelterName;
             alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Release Beds",
                     new DialogInterface.OnClickListener() {
@@ -238,33 +251,33 @@ public class Application extends FragmentActivity implements
                     firebaseChange = true;
                         assert reservedShelterInner != null;
                         reservedShelterInner.setVacancies(reservedShelterInner.getVacancies() +
-                                FirebaseHandler.getUserData().getReservation().second);
+                                FirebaseHandler.userData.getReservation().second);
                         reservedShelterInner.save();
                     Snackbar claimed = Snackbar.make(findViewById(R.id.coordinatorLayout),
-                            "Released " + FirebaseHandler.getUserData().getReservation().second +
+                            "Released " + FirebaseHandler.userData.getReservation().second +
                                     " bed(s).", Snackbar.LENGTH_LONG);
                     claimed.show();
-                    FirebaseHandler.getUserData().setReservation(null);
-                    FirebaseHandler.getUserData().save();
+                    FirebaseHandler.userData.setReservation(null);
+                    FirebaseHandler.userData.save();
                     alertDialog.cancel();
                 }
             });
-        } else if (FirebaseHandler.getUserData().getReservation().first == s.getUniqueKey()) {
-            message += "\n\nReserved beds: " + FirebaseHandler.getUserData().getReservation().second;
+        } else if (FirebaseHandler.userData.getReservation().first == s.getUniqueKey()) {
+            message += "\n\nReserved beds: " + FirebaseHandler.userData.getReservation().second;
             alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Release Beds",
                     new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     firebaseChange = true;
                     sInnerClassWrapper.setVacancies(sInnerClassWrapper.getVacancies() +
-                            FirebaseHandler.getUserData().getReservation().second);
+                            FirebaseHandler.userData.getReservation().second);
                     sInnerClassWrapper.save();
                     Snackbar claimed = Snackbar.make(findViewById(R.id.coordinatorLayout),
-                            "Released " + FirebaseHandler.getUserData().getReservation().second +
+                            "Released " + FirebaseHandler.userData.getReservation().second +
                                     " bed(s).", Snackbar.LENGTH_LONG);
                     claimed.show();
-                    FirebaseHandler.getUserData().setReservation(null);
-                    FirebaseHandler.getUserData().save();
+                    FirebaseHandler.userData.setReservation(null);
+                    FirebaseHandler.userData.save();
                     alertDialog.cancel();
                 }
             });
@@ -275,8 +288,9 @@ public class Application extends FragmentActivity implements
 
     private void claimBeds(Shelter s) {
         //Create another of the original dialog to return to after finishing
+        AlertDialog.Builder odbuilder = new AlertDialog.Builder(Application.this);
         final AlertDialog originalDialog =
-                new AlertDialog.Builder(Application.this).create();
+                odbuilder.create();
         originalDialog.setTitle(s.getName());
         String message = "";
         message += s.getPhoneNumber() + "\n";
@@ -297,7 +311,7 @@ public class Application extends FragmentActivity implements
         });
 
         //Build the claim beds dialog
-        final AlertDialog alertDialog = new AlertDialog.Builder(Application.this).create();
+        final AlertDialog alertDialog = odbuilder.create();
         alertDialog.setTitle("Claim Beds");
         final NumberPicker numberPicker = new NumberPicker(Application.this);
         numberPicker.setMaxValue(s.getVacancies());
@@ -308,9 +322,10 @@ public class Application extends FragmentActivity implements
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 if (numberPicker.getValue() != 0) {
-                    FirebaseHandler.getUserData().setReservation(new Pair<>(sInnerClassWrapper.getUniqueKey(),
+                    FirebaseHandler.userData.setReservation(new Pair<>(sInnerClassWrapper.
+                            getUniqueKey(),
                             numberPicker.getValue()));
-                    FirebaseHandler.getUserData().save();
+                    FirebaseHandler.userData.save();
                     sInnerClassWrapper.setVacancies(sInnerClassWrapper.getVacancies() -
                             numberPicker.getValue());
                     sInnerClassWrapper.save();

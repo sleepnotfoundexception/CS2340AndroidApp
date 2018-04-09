@@ -10,7 +10,7 @@ import java.util.List;
 @SuppressWarnings("ChainedMethodCall")
 class Shelter {
 
-    static List<Shelter> shelters = new ArrayList<>();
+    private static List<Shelter> shelters = new ArrayList<>();
     private String name;
     private String capacity;
     private double latitude;
