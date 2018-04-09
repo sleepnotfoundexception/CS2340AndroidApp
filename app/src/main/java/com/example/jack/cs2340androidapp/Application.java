@@ -381,8 +381,10 @@ public class Application extends FragmentActivity implements
     @param view Required by the intent API. Not used.
      */
     public void logout(View view) {
-        AuthUI.getInstance().signOut(this);
-        FirebaseAuth.getInstance().signOut();
+        AuthUI auth = AuthUI.getInstance();
+        auth.signOut(this);
+        FirebaseAuth fbAuth = FirebaseAuth.getInstance();
+        fbAuth.signOut();
         Intent intent = new Intent(Application.this, MainScreen.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

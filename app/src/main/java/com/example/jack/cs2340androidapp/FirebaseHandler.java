@@ -49,8 +49,9 @@ class FirebaseHandler {
                         tempShelter.setPhoneNumber(params.get("Phone Number"));
                         tempShelter.setRestrictions(params.get("Restrictions"));
                         tempShelter.setSpecialNotes(params.get("Special Notes"));
-                        Long vacancies = (Long)dataSnapshot.child(name)
-                                .child("Vacancies").getValue();
+                        DataSnapshot node1 = dataSnapshot.child(name);
+                        DataSnapshot vacanciesSn = node1.child("Vacancies");
+                        Long vacancies = (Long)vacanciesSn.getValue();
                         assert vacancies != null;
                         tempShelter.setVacancies(((int)vacancies.longValue()));
                         tempShelter.setUniqueKey(Integer.parseInt(params.get("Unique Key")));

@@ -3,6 +3,7 @@ package com.example.jack.cs2340androidapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -79,14 +80,17 @@ public class Filter extends AppCompatActivity {
         Spinner genderSpin = findViewById(R.id.genders);
         Spinner ageSpin = findViewById(R.id.ages);
         EditText name = findViewById(R.id.editText);
+        Editable nameText = name.getText();
+        Object gender = genderSpin.getSelectedItem();
+        Object age = ageSpin.getSelectedItem();
         String[] filter = {
-                name.getText().toString(),
-                genderSpin.getSelectedItem().toString(),
-                ageSpin.getSelectedItem().toString()};
-        if ("All".equals(genderSpin.getSelectedItem().toString())) {
+                nameText.toString(),
+                gender.toString(),
+                age.toString()};
+        if ("All".equals(gender.toString())) {
             filter[1] = "";
         }
-        if ("All".equals(ageSpin.getSelectedItem().toString())) {
+        if ("All".equals(age.toString())) {
             filter[2] = "";
         }
         Application.setFilter(filter);

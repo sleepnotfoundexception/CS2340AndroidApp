@@ -48,6 +48,7 @@ public class MainScreen extends AppCompatActivity {
     public void openLogin(View view) {
 // ...
 
+        //Google boilerplate code
 // Choose authentication providers
         List<AuthUI.IdpConfig> providers = Arrays.asList(
                 new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER).build(),
@@ -72,7 +73,8 @@ public class MainScreen extends AppCompatActivity {
         if (requestCode == RC_SIGN_IN) {
             if (resultCode == RESULT_OK) {
                 // Successfully signed in
-                final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                FirebaseAuth auth = FirebaseAuth.getInstance();
+                final FirebaseUser user = auth.getCurrentUser();
                 FirebaseHandler.activeUser = user;
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                 final DatabaseReference ref = database.getReference("users");
@@ -97,8 +99,9 @@ public class MainScreen extends AppCompatActivity {
                                 String phone = (String)activeUser.get("phone");
                                 String admin = (String)activeUser.get("admin");
                                 Pair<Integer, Integer> reservation = new Pair<>(0, 0);
-                                if (map.get(FirebaseHandler.activeUser.getUid()).get("Reservation")
-                                        != null) {
+                                Map<String, String> uid = map.get(FirebaseHandler.activeUser
+                                        .getUid());
+                                if (uid.get("Reservation") != null) {
                   //Java doesn't have reified generics, so type erasure is inevitable here
                                         DataSnapshot user =
                                                 dataSnapshot.child(FirebaseHandler.activeUser

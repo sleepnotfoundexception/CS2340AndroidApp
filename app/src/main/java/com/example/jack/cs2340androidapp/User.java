@@ -98,6 +98,7 @@ public class User {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference ref = database.getReference("users");
         DatabaseReference snap = ref.child(FirebaseHandler.activeUser.getUid());
-        snap.child("Reservation").setValue(reservation);
+        DatabaseReference child = snap.child("Reservation");
+        child.setValue(reservation);
     }
 }

@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
 import android.text.InputType;
 import android.view.View;
 import android.widget.CheckBox;
@@ -44,7 +45,8 @@ Builds a new user based on the fields entered. Throws an AlertDialog if errors e
  */
     public void createUser (View view) {
         EditText phoneField = findViewById(R.id.phoneField);
-        String phone = phoneField.getText().toString();
+        Editable phoneText = phoneField.getText();
+        String phone = phoneText.toString();
         if ((((phone.length() >= 9) && (phone.length() <= 10)) || "".equals(phone))) {
             CheckBox administrator = findViewById(R.id.Administrator);
             if (administrator.isChecked()) {
@@ -56,10 +58,11 @@ Builds a new user based on the fields entered. Throws an AlertDialog if errors e
                 input.setInputType(InputType.TYPE_CLASS_TEXT |
                         InputType.TYPE_TEXT_VARIATION_PASSWORD);
                 builder.setView(input);
+                final Editable inputText = input.getText();
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        adminPassGet = input.getText().toString();
+                        adminPassGet = inputText.toString();
                         if (!adminPassGet.equals(adminPass)) {
                             adminPassRequirementMet = false;
                         } else {
@@ -80,7 +83,8 @@ Builds a new user based on the fields entered. Throws an AlertDialog if errors e
                 createUser(true);
             }
         } else if (!"".equals(phone)) {
-            AlertDialog alertDialog = new AlertDialog.Builder(Registration.this).create();
+            AlertDialog.Builder builder = new AlertDialog.Builder(Registration.this);
+            AlertDialog alertDialog = builder.create();
             alertDialog.setTitle("Bad Phone Number");
             alertDialog.setMessage("Phone number does not match correct format.");
             alertDialog.show();
@@ -94,35 +98,47 @@ Builds a new user based on the fields entered. Throws an AlertDialog if errors e
         EditText phone = findViewById(R.id.phoneField);
         EditText nameField = findViewById(R.id.nameField);
         CheckBox administrator = findViewById(R.id.Administrator);
+        Editable nameText = nameField.getText();
+        Editable cityText = city.getText();
+        Editable phoneText = phone.getText();
         if (continueLogin) {
             User user = new User(
-                    nameField.getText().toString(),
-                    city.getText().toString(),
+                    nameText.toString(),
+                    cityText.toString(),
                     //FirebaseHandler.activeUser.getEmail(),
-                    phone.getText().toString(),
+                    phoneText.toString(),
                     administrator.isChecked());
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             DatabaseReference ref = database.getReference("users");
             String uID = FirebaseHandler.activeUser.getUid();
             DatabaseReference userSnap = ref.child(uID);
-            userSnap.child("name").setValue(user.getName());
-            userSnap.child("city").setValue(user.getCity());
-            userSnap.child("phone").setValue(user.getPhoneNumber());
+            DatabaseReference nameRef = userSnap.child("name");
+            DatabaseReference cityRef = userSnap.child("city");
+            DatabaseReference phoneRef = userSnap.child("phone");
+            DatabaseReference adminRef = userSnap.child("admin");
+            nameRef.setValue(user.getName());
+            cityRef.setValue(user.getCity());
+            phoneRef.setValue(user.getPhoneNumber());
             if (user.isAdministrator()) {
-                userSnap.child("admin").setValue("true");
+                adminRef.setValue("true");
             } else {
-                userSnap.child("admin").setValue("false");
+                adminRef.setValue("false");
             }
             Intent intent = new Intent(Registration.this, Application.class);
             startActivity(intent);
 
         }
         if (!continueLogin){
-            AlertDialog alertDialog = new AlertDialog.Builder(Registration.this).create();
-            alertDialog.setTitle("Bad Admin Login");
-            alertDialog.setMessage("The administrator password does not match.");
-            alertDialog.show();
+            showAdminError();
         }
+    }
+
+    private void showAdminError() {
+        AlertDialog.Builder builder =  new AlertDialog.Builder(Registration.this);
+        AlertDialog alertDialog = builder.create();
+        alertDialog.setTitle("Bad Admin Login");
+        alertDialog.setMessage("The administrator password does not match.");
+        alertDialog.show();
     }
 
     /**
