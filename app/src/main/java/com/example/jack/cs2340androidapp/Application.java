@@ -139,6 +139,11 @@ public class Application extends FragmentActivity implements
         return filteredShelters;
     }
 
+    /**
+     * Runs all existing filters on the given shelter
+     * @param s Shelter to filter.
+     * @return True if kept, false if not kept.
+     */
     public boolean runFilters(Shelter s) {
         if (!"".equals(filter[0])) {
             if (!runNameFilters(s)) {
@@ -153,6 +158,11 @@ public class Application extends FragmentActivity implements
                 && newbornFilters(s);
     }
 
+    /**
+     * Filters out options for newborns
+     * @param s Shelter to filter
+     * @return True if kept, false if not kept.
+     */
     public boolean newbornFilters(Shelter s) {
         String restr = s.getRestrictions();
         String restrLC = restr.toLowerCase();
@@ -162,6 +172,11 @@ public class Application extends FragmentActivity implements
                         restrLC.contains("newborns"));
     }
 
+    /**
+     * Filter options for names
+     * @param s Shelter to filter
+     * @return True if kept, false if not kept.
+     */
     public boolean runNameFilters(Shelter s) {
         String filter0LC = filter[0].toLowerCase();
         String filter0LCTrim = filter0LC.trim();
@@ -176,6 +191,11 @@ public class Application extends FragmentActivity implements
         return true;
     }
 
+    /**
+     * Filter options for male/female shelters
+     * @param s Shelter to filter
+     * @return True if kept, false if not kept.
+     */
     public boolean MFFilter(Shelter s) {
         String str = s.getRestrictions();
         String strLC = str.toLowerCase();
