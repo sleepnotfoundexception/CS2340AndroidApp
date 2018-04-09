@@ -13,41 +13,43 @@ import android.widget.EditText;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+@SuppressWarnings("ChainedMethodCall")
 public class Registration extends AppCompatActivity {
 
-    private String adminPass = "a";
+    private final String adminPass = "a";
     private String adminPassGet = "";
-    boolean adminPassRequirementMet = true;
+    private boolean adminPassRequirementMet = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
-        EditText cityfield = findViewById(R.id.cityField);
-        EditText phonefield = findViewById(R.id.phoneField);
+        EditText phoneField = findViewById(R.id.phoneField);
         if (MainScreen.activeUser.getPhoneNumber() != null) {
-            phonefield.setText(MainScreen.activeUser.getPhoneNumber().substring(2));
+                String phone = MainScreen.activeUser.getPhoneNumber();
+                assert phone != null;
+                phoneField.setText(phone.substring(2));
         }
-        EditText namefield = findViewById(R.id.nameField);
+        EditText nameField = findViewById(R.id.nameField);
         if (MainScreen.activeUser.getDisplayName() != null) {
-            namefield.setText(MainScreen.activeUser.getDisplayName());
+            nameField.setText(MainScreen.activeUser.getDisplayName());
         }
-        namefield.requestFocus();
+        nameField.requestFocus();
     }
 
     public void createUser (View view) {
-        EditText cityfield = findViewById(R.id.cityField);
-        EditText phonefield = findViewById(R.id.phoneField);
-        String city = cityfield.getText().toString();
-        String phone = phonefield.getText().toString();
-        if (((phone.length() >= 9 && phone.length() <= 10) || phone.equals(""))) {
+        EditText phoneField = findViewById(R.id.phoneField);
+        String phone = phoneField.getText().toString();
+        if ((((phone.length() >= 9) && (phone.length() <= 10)) || "".equals(phone))) {
             CheckBox administrator = findViewById(R.id.Administrator);
             if (administrator.isChecked()) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setTitle("Password Required");
-                builder.setMessage("In order to create an administrator, please enter administrator password.");
+                builder.setMessage("In order to create an administrator, " +
+                        "please enter administrator password.");
                 final EditText input = new EditText(this);
-                input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                input.setInputType(InputType.TYPE_CLASS_TEXT |
+                        InputType.TYPE_TEXT_VARIATION_PASSWORD);
                 builder.setView(input);
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
@@ -72,7 +74,7 @@ public class Registration extends AppCompatActivity {
             } else {
                 createUser(true);
             }
-        } else if ((phone.length() > 10 || phone.length() < 9) && !phone.equals("")) {
+        } else if (!"".equals(phone)) {
             AlertDialog alertDialog = new AlertDialog.Builder(Registration.this).create();
             alertDialog.setTitle("Bad Phone Number");
             alertDialog.setMessage("Phone number does not match correct format.");
@@ -80,27 +82,29 @@ public class Registration extends AppCompatActivity {
         }
     }
 
-    public void createUser(boolean continueLogin) {
+    private void createUser(boolean continueLogin) {
         EditText city = findViewById(R.id.cityField);
         EditText phone = findViewById(R.id.phoneField);
-        EditText namefield = findViewById(R.id.nameField);
+        EditText nameField = findViewById(R.id.nameField);
         CheckBox administrator = findViewById(R.id.Administrator);
         if (continueLogin) {
             User user = new User(
-                    namefield.getText().toString(),
+                    nameField.getText().toString(),
                     city.getText().toString(),
                     MainScreen.activeUser.getEmail(),
                     phone.getText().toString(),
                     administrator.isChecked());
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             DatabaseReference ref = database.getReference("users");
-            ref.child(MainScreen.activeUser.getUid()).child("name").setValue(user.getName());
-            ref.child(MainScreen.activeUser.getUid()).child("city").setValue(user.getCity());
-            ref.child(MainScreen.activeUser.getUid()).child("phone").setValue(user.getPhoneNumber());
+            String uID = MainScreen.activeUser.getUid();
+            DatabaseReference userSnap = ref.child(uID);
+            userSnap.child("name").setValue(user.getName());
+            userSnap.child("city").setValue(user.getCity());
+            userSnap.child("phone").setValue(user.getPhoneNumber());
             if (user.isAdministrator()) {
-                ref.child(MainScreen.activeUser.getUid()).child("admin").setValue("true");
+                userSnap.child("admin").setValue("true");
             } else {
-                ref.child(MainScreen.activeUser.getUid()).child("admin").setValue("false");
+                userSnap.child("admin").setValue("false");
             }
             Intent intent = new Intent(Registration.this, Application.class);
             startActivity(intent);

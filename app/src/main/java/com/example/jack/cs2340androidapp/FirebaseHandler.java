@@ -15,7 +15,8 @@ import java.util.List;
  */
 
 public class FirebaseHandler {
-    public FirebaseHandler() {
+
+    public void initialize() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference ref = database.getReference("shelters");
         ref.addValueEventListener(new ValueEventListener() {
@@ -25,8 +26,11 @@ public class FirebaseHandler {
                 // whenever data at this location is updated.
                 HashMap<String, HashMap<String, String>> map =
                         (HashMap<String, HashMap<String, String>>)dataSnapshot.getValue();
-                List<String> shelterNames = new ArrayList<String>(map.keySet());
-                List<Shelter> newShelterList = new ArrayList<Shelter>();
+                List<String> shelterNames = new ArrayList();
+                try {
+                    shelterNames = new ArrayList<>(map.keySet());
+                } catch (java.lang.NullPointerException e) {}
+                List<Shelter> newShelterList = new ArrayList<>();
                 for (String name: shelterNames) {
                     try {
                         Shelter tempShelter = new Shelter();
@@ -35,10 +39,15 @@ public class FirebaseHandler {
                         tempShelter.setLatitude(Double.parseDouble(params.get("Latitude")));
                         tempShelter.setLongitude(Double.parseDouble(params.get("Longitude")));
                         tempShelter.setName(name);
-                        tempShelter.setPhonenumber(params.get("Phone Number"));
+                        tempShelter.setPhoneNumber(params.get("Phone Number"));
                         tempShelter.setRestrictions(params.get("Restrictions"));
-                        tempShelter.setSpecialnotes(params.get("Special Notes"));
-                        tempShelter.setVacancies(((int)(long)(Long)dataSnapshot.child(name).child("Vacancies").getValue()));
+                        tempShelter.setSpecialNotes(params.get("Special Notes"));
+                        Long vacancies = new Long(0);
+                        try {
+                            vacancies = (Long)dataSnapshot.child(name)
+                                    .child("Vacancies").getValue();
+                        } catch (java.lang.NullPointerException e) {}
+                        tempShelter.setVacancies(((int)(long)vacancies));
                         tempShelter.setUniqueKey(Integer.parseInt(params.get("Unique Key")));
                         newShelterList.add(tempShelter);
                     } catch (Exception e) {

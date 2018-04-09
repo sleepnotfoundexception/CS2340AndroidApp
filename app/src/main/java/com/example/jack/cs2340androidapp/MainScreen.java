@@ -1,14 +1,12 @@
 package com.example.jack.cs2340androidapp;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Pair;
 import android.view.View;
 
 import com.firebase.ui.auth.AuthUI;
-import com.firebase.ui.auth.IdpResponse;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -20,12 +18,13 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MainScreen extends AppCompatActivity {
 
-    private static SharedPreferences sharedPref;
     private static final int RC_SIGN_IN = 123;
     public static FirebaseUser activeUser;
     public static User userData;
@@ -36,6 +35,7 @@ public class MainScreen extends AppCompatActivity {
         setContentView(R.layout.activity_main_screen);
         FirebaseApp.initializeApp(this);
         FirebaseHandler firebase = new FirebaseHandler();
+        firebase.initialize();
     }
 
     public void openLogin(View view) {
@@ -63,8 +63,6 @@ public class MainScreen extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == RC_SIGN_IN) {
-            IdpResponse response = IdpResponse.fromResultIntent(data);
-
             if (resultCode == RESULT_OK) {
                 // Successfully signed in
                 final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -74,47 +72,57 @@ public class MainScreen extends AppCompatActivity {
                 ref.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        HashMap<String, HashMap<String, String>> map =
-                                (HashMap<String, HashMap<String, String>>)dataSnapshot.getValue();
-                        List<String> uids = new ArrayList<String>(map.keySet());
-                        if (!uids.contains(user.getUid())) {
-                            //create user
-                            Intent moveToRegister = new Intent(MainScreen.this, Registration.class);
-                            startActivity(moveToRegister);
-                        } else {
-                            //is returning user
-                            String name = map.get(MainScreen.activeUser.getUid()).get("name");
-                            String city = map.get(MainScreen.activeUser.getUid()).get("city");
-                            String phone = map.get(MainScreen.activeUser.getUid()).get("phone");
-                            String admin = map.get(MainScreen.activeUser.getUid()).get("admin");
-                            Pair<Integer, Integer> reservation = null;
-                            if (map.get(MainScreen.activeUser.getUid()).get("Reservation") != null) {
-                                HashMap<String, Long> reservationMap = (HashMap<String, Long>)dataSnapshot.child(MainScreen.activeUser.getUid()).child("Reservation").getValue();
-                                reservation = new Pair((int)(long)(Long)reservationMap.get("first"), (int)(long)(Long)reservationMap.get("second"));
-                            }
-                            boolean isAdmin = false;
-                            if (admin != null && admin.equals("true")) {
-                                isAdmin = true;
-                            }
-                            userData = new User(name, city, MainScreen.activeUser.getEmail(), phone, isAdmin);
-                            userData.setReservation(reservation);
-                            Intent moveToApp = new Intent(MainScreen.this, Application.class);
-                            moveToApp.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-                            moveToApp.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            moveToApp.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(moveToApp);
+                        Map<String, HashMap<String, String>> map
+                                = (HashMap<String, HashMap<String, String>>)dataSnapshot.getValue();
+                            assert map != null;
+                            Collection<String> uIDs = new ArrayList<>(map.keySet());
+                            assert user != null;
+                            if (!uIDs.contains(user.getUid())) {
+                                //create user
+                                Intent moveToRegister = new Intent(MainScreen.this,
+                                        Registration.class);
+                                startActivity(moveToRegister);
+                            } else {
+                                //is returning user
+                                HashMap activeUser = map.get(MainScreen.activeUser.getUid());
+                                String name = (String)activeUser.get("name");
+                                String city = (String)activeUser.get("city");
+                                String phone = (String)activeUser.get("phone");
+                                String admin = (String)activeUser.get("admin");
+                                Pair<Integer, Integer> reservation = new Pair<>(0, 0);
+                                if (map.get(MainScreen.activeUser.getUid()).get("Reservation")
+                                        != null) {
+                  //Java doesn't have reified generics, so type erasure is inevitable here
+                                        DataSnapshot user =
+                                                dataSnapshot.child(MainScreen.activeUser.getUid());
+                                        DataSnapshot reservationSnap = user.child("Reservation");
+                                        HashMap<String, Long> reservationMap =
+                                                (HashMap<String, Long>) reservationSnap.getValue();
+                                        assert reservationMap != null;
+                                        reservation =
+                                                new Pair((int)(long)reservationMap.get("first"),
+                                                        (int)(long) reservationMap.get("second"));
+                                }
+                                boolean isAdmin = false;
+                                if ((admin != null) && "true".equals(admin)) {
+                                    isAdmin = true;
+                                }
+                                userData = new User(name, city, MainScreen.activeUser.getEmail(),
+                                        phone, isAdmin);
+                                userData.setReservation(reservation);
+                                Intent moveToApp = new Intent(MainScreen.this,
+                                        Application.class);
+                                moveToApp.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                                moveToApp.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                moveToApp.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(moveToApp);
                         }
                     }
 
                     @Override
-                    public void onCancelled(DatabaseError error) {
-                        System.err.println(error.getMessage());
-                    }
+                    public void onCancelled(DatabaseError error) {}
                 });
                 // ...
-            } else {
-                activeUser = null;
-                userData = null;
             }
         }
     }

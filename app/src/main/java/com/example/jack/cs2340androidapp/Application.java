@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
+@SuppressWarnings("ChainedMethodCall")
 public class Application extends FragmentActivity implements
         GoogleMap.OnMarkerClickListener,
         OnMapReadyCallback
@@ -36,11 +36,11 @@ public class Application extends FragmentActivity implements
     private static String[] filter = {"", "", ""};
 
     public static String[] getFilter() {
-        return filter;
+        return filter.clone();
     }
 
     public static void setFilter(String[] filter) {
-        Application.filter = filter;
+        Application.filter = filter.clone();
     }
 
     private GoogleMap mMap;
@@ -51,44 +51,50 @@ public class Application extends FragmentActivity implements
         mMap = googleMap;
 
         List<Shelter> shelters = getFilteredShelters();
-        double minLati = 500, maxLati = -500;
-        double minLngi = 500, maxLngi = -500;
+        double minLatitude = Integer.MAX_VALUE;
+        double maxLatitude = Integer.MIN_VALUE;
+        double minLongitude = Integer.MAX_VALUE;
+        double maxLongitude = Integer.MIN_VALUE;
         for (Shelter s: shelters) {
-            maxLngi = (s.getLongitude() > maxLngi) ? s.getLongitude() : maxLngi;
-            minLngi = (s.getLongitude() < minLngi) ? s.getLongitude() : minLngi;
-            maxLati = (s.getLatitude() > maxLati) ? s.getLatitude() : maxLati;
-            minLati = (s.getLatitude() < minLati) ? s.getLatitude() : minLati;
+            maxLongitude = (s.getLongitude() > maxLongitude) ? s.getLongitude() : maxLongitude;
+            minLongitude = (s.getLongitude() < minLongitude) ? s.getLongitude() : minLongitude;
+            maxLatitude = (s.getLatitude() > maxLatitude) ? s.getLatitude() : maxLatitude;
+            minLatitude = (s.getLatitude() < minLatitude) ? s.getLatitude() : minLatitude;
             Marker mark = mMap.addMarker(new MarkerOptions()
                     .position(new LatLng(s.getLatitude(), s.getLongitude()))
                     .title(s.getName()));
             mark.setTag(s);
         }
-        final double minLng = minLngi;
-        final double maxLng = maxLngi;
-        final double minLat = minLati;
-        final double maxLat = maxLati;
+        final double minLng = minLongitude;
+        final double maxLng = maxLongitude;
+        final double minLat = minLatitude;
+        final double maxLat = maxLatitude;
+        final int cameraMovementAmount = 50;
         if (firebaseChange) {
             mMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
                 @Override
                 public void onMapLoaded() {
                     LatLngBounds BOUNDS = new LatLngBounds(
                             new LatLng(minLat, minLng), new LatLng(maxLat, maxLng));
-                    mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(BOUNDS, 50));
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(BOUNDS,
+                            cameraMovementAmount));
                     firebaseChange = false;
                 }
             });
         } else {
             LatLngBounds BOUNDS = new LatLngBounds(
                     new LatLng(minLat, minLng), new LatLng(maxLat, maxLng));
-            mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(BOUNDS, 50));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(BOUNDS, cameraMovementAmount));
         }
         mMap.setOnMarkerClickListener(this);
     }
 
+    @Override
     public boolean onMarkerClick(final Marker marker) {
 
         // Retrieve the data from the marker.
         Shelter s = (Shelter) marker.getTag();
+        assert s != null;
         showAlertDialog(s);
 
         // Return false to indicate that we have not consumed the event and that we wish
@@ -97,60 +103,56 @@ public class Application extends FragmentActivity implements
         return false;
     }
 
-    public List<Shelter> getFilteredShelters () {
+    private List<Shelter> getFilteredShelters () {
         List<Shelter> shelters = ShelterModel.getShelters();
-        List<Shelter> filteredShelters = new ArrayList<Shelter>();
+        List<Shelter> filteredShelters = new ArrayList<>();
         for (Shelter s: shelters) {
-            boolean filterMatch = true;
-            if (!filter[0].equals("")) {
-                String[] namefilters = filter[0].toLowerCase().trim().split(" ");
-                for (String name : namefilters) {
-                    if (!s.getName().toLowerCase().contains(name)) {
-                        filterMatch = false;
-                    }
-                }
-            }
-            if (!filter[1].equals("")) {
-                if (filter[1].equals("Female")) {
-                    //I know my regex sucks and I could consolidate this sorry
-                    //it does work
-                    Pattern p = Pattern.compile("^men");
-                    Pattern p2 = Pattern.compile(" men");
-                    Pattern p3 = Pattern.compile("^male");
-                    Pattern p4 = Pattern.compile(" male");
-                    Pattern p5 = Pattern.compile("//men");
-                    Pattern p6 = Pattern.compile("//male");
-                    Matcher m = p.matcher(s.getRestrictions().toLowerCase());
-                    Matcher m2 = p2.matcher(s.getRestrictions().toLowerCase());
-                    Matcher m3 = p3.matcher(s.getRestrictions().toLowerCase());
-                    Matcher m4 = p4.matcher(s.getRestrictions().toLowerCase());
-                    Matcher m5 = p5.matcher(s.getRestrictions().toLowerCase());
-                    Matcher m6 = p6.matcher(s.getRestrictions().toLowerCase());
-                    if (m.find() || m2.find() || m3.find() || m4.find() || m5.find() || m6.find()) {
-                        filterMatch = false;
-                    }
-                }
-                if (filter[1].equals("Male")) {
-                    if (s.getRestrictions().toLowerCase().contains("women") || s.getRestrictions().toLowerCase().contains("female")) {
-                        filterMatch = false;
-                    }
-                }
-            }
-            if (!filter[2].equals("") && !filter[2].equals("Families with Newborns")) {
-                if (!s.getRestrictions().toLowerCase().contains(filter[2].toLowerCase())) {
-                    filterMatch = false;
-                }
-            } else if (filter[2].equals("Families with Newborns")) {
-                if (!s.getRestrictions().toLowerCase().contains(filter[2].toLowerCase())
-                        && !(s.getRestrictions().toLowerCase().contains("families") && s.getRestrictions().toLowerCase().contains("newborns"))) {
-                    filterMatch = false;
-                }
-            }
-            if (filterMatch) {
+            if (runFilters(s)) {
                 filteredShelters.add(s);
             }
         }
         return filteredShelters;
+    }
+
+    private boolean runFilters(Shelter s) {
+        if (!"".equals(filter[0])) {
+            if (!runNameFilters(s)) {
+                return false;
+            }
+        }
+        return ("".equals(filter[1]) || MFFilter(s)) && ("".equals(filter[2])
+                || "Families with Newborns".equals(filter[2]) ||
+                s.getRestrictions().toLowerCase().contains(filter[2].toLowerCase()))
+                && newbornFilters(s);
+    }
+
+    private boolean newbornFilters(Shelter s) {
+        return !"Families with Newborns".equals(filter[2]) ||
+                s.getRestrictions().toLowerCase().contains(filter[2].toLowerCase()) ||
+                (s.getRestrictions().toLowerCase().contains("families") &&
+                        s.getRestrictions().toLowerCase().contains("newborns"));
+    }
+
+    private boolean runNameFilters(Shelter s) {
+        String[] namefilters = filter[0].toLowerCase().trim().split(" ");
+        for (String name : namefilters) {
+            if (!s.getName().toLowerCase().contains(name)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean MFFilter(Shelter s) {
+        if ("Female".equals(filter[1])) {
+            Pattern p = Pattern.compile("^men| men|^male| male|//men|//male");
+            Matcher m = p.matcher(s.getRestrictions().toLowerCase());
+            if (m.find()) {
+                return false;
+            }
+        }
+        return !"Male".equals(filter[1]) || !s.getRestrictions().toLowerCase().contains("women")
+                && !s.getRestrictions().toLowerCase().contains("female");
     }
 
     @Override
@@ -170,20 +172,21 @@ public class Application extends FragmentActivity implements
         }
     }
 
-    public void showAlertDialog(Shelter s) {
+    private void showAlertDialog(Shelter s) {
         final AlertDialog alertDialog = new AlertDialog.Builder(Application.this).create();
         alertDialog.setTitle(s.getName());
         String message = "";
-        message += s.getPhonenumber() + "\n";
+        message += s.getPhoneNumber() + "\n";
         message += "Capacity: " + s.getCapacity() + "\n";
         message += "Restrictions: " + s.getRestrictions() + "\n\n";
         message += "Latitude: " + s.getLatitude() + "\n";
         message += "Longitude: " + s.getLongitude() + "\n\n";
-        message += s.getSpecialnotes();
+        message += s.getSpecialNotes();
         message += "\n\nVacancies: " + s.getVacancies();
         final Shelter sInnerClassWrapper = s;
         if (MainScreen.userData.getReservation() == null) {
-            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Claim Beds", new DialogInterface.OnClickListener() {
+            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Claim Beds",
+                    new DialogInterface.OnClickListener() {
 
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
@@ -202,15 +205,21 @@ public class Application extends FragmentActivity implements
                 }
             }
             final Shelter reservedShelterInner = reservedShelter;
-            message += "\n\nReserved beds: " + MainScreen.userData.getReservation().second + " at " + reservedShelterName;
-            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Release Beds", new DialogInterface.OnClickListener() {
+            message += "\n\nReserved beds: " + MainScreen.userData.getReservation().second +
+                    " at " + reservedShelterName;
+            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Release Beds",
+                    new DialogInterface.OnClickListener() {
 
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     firebaseChange = true;
-                    reservedShelterInner.setVacancies(reservedShelterInner.getVacancies() + MainScreen.userData.getReservation().second);
-                    reservedShelterInner.save();
-                    Snackbar claimed = Snackbar.make(findViewById(R.id.coordinatorLayout), "Released " +MainScreen.userData.getReservation().second + " bed(s).", Snackbar.LENGTH_LONG);
+                        assert reservedShelterInner != null;
+                        reservedShelterInner.setVacancies(reservedShelterInner.getVacancies() +
+                                MainScreen.userData.getReservation().second);
+                        reservedShelterInner.save();
+                    Snackbar claimed = Snackbar.make(findViewById(R.id.coordinatorLayout),
+                            "Released " +MainScreen.userData.getReservation().second +
+                                    " bed(s).", Snackbar.LENGTH_LONG);
                     claimed.show();
                     MainScreen.userData.setReservation(null);
                     MainScreen.userData.save();
@@ -218,25 +227,18 @@ public class Application extends FragmentActivity implements
                 }
             });
         } else if (MainScreen.userData.getReservation().first == s.getUniqueKey()) {
-            //Reservation exists at this shelter
-            String reservedShelterName = "";
-            Shelter reservedShelter = null;
-            for (Shelter s2: ShelterModel.getShelters()) {
-                if (s2.getUniqueKey() == MainScreen.userData.getReservation().first) {
-                    reservedShelterName = s2.getName();
-                    reservedShelter = s2;
-                }
-            }
-            final Shelter reservedShelterInner = reservedShelter;
             message += "\n\nReserved beds: " + MainScreen.userData.getReservation().second;
-            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Release Beds", new DialogInterface.OnClickListener() {
-
+            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Release Beds",
+                    new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     firebaseChange = true;
-                    sInnerClassWrapper.setVacancies(sInnerClassWrapper.getVacancies() + MainScreen.userData.getReservation().second);
+                    sInnerClassWrapper.setVacancies(sInnerClassWrapper.getVacancies() +
+                            MainScreen.userData.getReservation().second);
                     sInnerClassWrapper.save();
-                    Snackbar claimed = Snackbar.make(findViewById(R.id.coordinatorLayout), "Released " +MainScreen.userData.getReservation().second + " bed(s).", Snackbar.LENGTH_LONG);
+                    Snackbar claimed = Snackbar.make(findViewById(R.id.coordinatorLayout),
+                            "Released " +MainScreen.userData.getReservation().second +
+                                    " bed(s).", Snackbar.LENGTH_LONG);
                     claimed.show();
                     MainScreen.userData.setReservation(null);
                     MainScreen.userData.save();
@@ -248,21 +250,23 @@ public class Application extends FragmentActivity implements
         alertDialog.show();
     }
 
-    public void claimBeds(Shelter s) {
+    private void claimBeds(Shelter s) {
         //Create another of the original dialog to return to after finishing
-        final AlertDialog originalDialog = new AlertDialog.Builder(Application.this).create();
+        final AlertDialog originalDialog =
+                new AlertDialog.Builder(Application.this).create();
         originalDialog.setTitle(s.getName());
         String message = "";
-        message += s.getPhonenumber() + "\n";
+        message += s.getPhoneNumber() + "\n";
         message += "Capacity: " + s.getCapacity() + "\n";
         message += "Restrictions: " + s.getRestrictions() + "\n\n";
         message += "Latitude: " + s.getLatitude() + "\n";
         message += "Longitude: " + s.getLongitude() + "\n\n";
-        message += s.getSpecialnotes();
+        message += s.getSpecialNotes();
         message += "\n\nVacancies: " + s.getVacancies();
         originalDialog.setMessage(message);
         final Shelter sInnerClassWrapper = s;
-        originalDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Claim Beds", new DialogInterface.OnClickListener() {
+        originalDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Claim Beds",
+                new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 claimBeds(sInnerClassWrapper);
@@ -276,21 +280,27 @@ public class Application extends FragmentActivity implements
         numberPicker.setMaxValue(s.getVacancies());
         numberPicker.setMinValue(0);
         alertDialog.setView(numberPicker);
-        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Claim", new DialogInterface.OnClickListener() {
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Claim", new
+                DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 if (numberPicker.getValue() != 0) {
-                    MainScreen.userData.setReservation(new Pair<Integer, Integer>(sInnerClassWrapper.getUniqueKey(), numberPicker.getValue()));
+                    MainScreen.userData.setReservation(new Pair<>(sInnerClassWrapper.getUniqueKey(),
+                            numberPicker.getValue()));
                     MainScreen.userData.save();
-                    sInnerClassWrapper.setVacancies(sInnerClassWrapper.getVacancies() - numberPicker.getValue());
+                    sInnerClassWrapper.setVacancies(sInnerClassWrapper.getVacancies() -
+                            numberPicker.getValue());
                     sInnerClassWrapper.save();
-                    Snackbar claimed = Snackbar.make(findViewById(R.id.coordinatorLayout), "Claimed " + numberPicker.getValue() + " bed(s).", Snackbar.LENGTH_LONG);
+                    Snackbar claimed = Snackbar.make(findViewById(R.id.coordinatorLayout),
+                            "Claimed " + numberPicker.getValue() + " bed(s).",
+                            Snackbar.LENGTH_LONG);
                     claimed.show();
                 }
                 alertDialog.cancel();
             }
         });
-        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel", new DialogInterface.OnClickListener() {
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel",
+                new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 originalDialog.show();

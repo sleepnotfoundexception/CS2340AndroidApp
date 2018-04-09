@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+@SuppressWarnings("ChainedMethodCall")
 public class Filter extends AppCompatActivity {
 
     @Override
@@ -15,36 +16,49 @@ public class Filter extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filter);
         String[] genders = new String[] {"All", "Male", "Female"};
-        ArrayAdapter<String> genderadapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
-        genderadapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        genderadapter.addAll(genders);
-        Spinner genderspin = (Spinner)findViewById(R.id.genders);
-        genderspin.setAdapter(genderadapter);
-        String[] ages = new String[] {"All", "Families with Newborns", "Children", "Young Adults", "Anyone"};
-        ArrayAdapter<String> ageadapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
-        ageadapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        ageadapter.addAll(ages);
-        Spinner agespin = (Spinner)findViewById(R.id.ages);
-        agespin.setAdapter(ageadapter);
+        ArrayAdapter<String> genderAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item);
+        genderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        genderAdapter.addAll(genders);
+        Spinner genderSpin = findViewById(R.id.genders);
+        genderSpin.setAdapter(genderAdapter);
 
         String[] currentFilterList = Application.getFilter();
-        EditText name = (EditText)findViewById(R.id.editText);
+        EditText name = findViewById(R.id.editText);
         name.setText(currentFilterList[0]);
-        if (currentFilterList[1].equals("Male")) {
-            genderspin.setSelection(1);
-        } else if (currentFilterList[1].equals("Female")) {
-            genderspin.setSelection(2);
+        if ("Male".equals(currentFilterList[1])) {
+            genderSpin.setSelection(1);
+        } else if ("Female".equals(currentFilterList[1])) {
+            genderSpin.setSelection(2);
         }
-        if (currentFilterList[2].equals("Families with Newborns")) {
-            agespin.setSelection(1);
-        } else if (currentFilterList[2].equals("Children")) {
-            agespin.setSelection(2);
-        } else if (currentFilterList[2].equals("Young Adults")) {
-            agespin.setSelection(3);
-        } else if (currentFilterList[2].equals("Anyone")) {
-            agespin.setSelection(4);
+        ageSpinSetup();
+    }
+
+    private void ageSpinSetup() {
+        String[] ages = new String[] {"All", "Families with Newborns", "Children",
+                "Young Adults", "Anyone"};
+        ArrayAdapter<String> ageadapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item);
+        ageadapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ageadapter.addAll(ages);
+        Spinner agespin = findViewById(R.id.ages);
+        agespin.setAdapter(ageadapter);
+        switch (Application.getFilter()[2]) {
+            case "Families with Newborns":
+                agespin.setSelection(1);
+                break;
+            case "Children":
+                agespin.setSelection(2);
+                break;
+            case "Young Adults":
+                agespin.setSelection(3);
+                break;
+            case "Anyone":
+                agespin.setSelection(4);
+                break;
         }
     }
+
     public void back (View view) {
         Application.setFilter(new String[]{"", "", ""});
         Intent intent = new Intent(Filter.this, Application.class);
@@ -52,17 +66,17 @@ public class Filter extends AppCompatActivity {
     }
 
     public void filter (View view) {
-        Spinner genderspin = (Spinner)findViewById(R.id.genders);
-        Spinner agespin = (Spinner)findViewById(R.id.ages);
-        EditText name = (EditText)findViewById(R.id.editText);
+        Spinner genderSpin = findViewById(R.id.genders);
+        Spinner ageSpin = findViewById(R.id.ages);
+        EditText name = findViewById(R.id.editText);
         String[] filter = {
                 name.getText().toString(),
-                genderspin.getSelectedItem().toString(),
-                agespin.getSelectedItem().toString()};
-        if (genderspin.getSelectedItem().toString().equals("All")) {
+                genderSpin.getSelectedItem().toString(),
+                ageSpin.getSelectedItem().toString()};
+        if ("All".equals(genderSpin.getSelectedItem().toString())) {
             filter[1] = "";
         }
-        if (agespin.getSelectedItem().toString().equals("All")) {
+        if ("All".equals(ageSpin.getSelectedItem().toString())) {
             filter[2] = "";
         }
         Application.setFilter(filter);
