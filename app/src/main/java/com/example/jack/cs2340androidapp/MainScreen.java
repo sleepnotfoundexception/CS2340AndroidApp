@@ -23,10 +23,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * The opening screen for the app.
+ */
 public class MainScreen extends AppCompatActivity {
 
     private static final int RC_SIGN_IN = 123;
+    /**
+     * Stores the currently authenticated Firebase user.
+     */
     public static FirebaseUser activeUser;
+    /**
+     * Stores the user object associated with the currently authenticated user.
+     */
     public static User userData;
 
     @Override
@@ -38,6 +47,11 @@ public class MainScreen extends AppCompatActivity {
         firebase.initialize();
     }
 
+    /**
+    Creates a Google Firebase login screen and starts the activity. Entirely Google-provided
+    boilerplate code.
+    @param view Required by buttonPress function.
+     */
     public void openLogin(View view) {
 // ...
 

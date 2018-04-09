@@ -8,7 +8,9 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-@SuppressWarnings("ChainedMethodCall")
+/**
+ * Handles filtering.
+ */
 public class Filter extends AppCompatActivity {
 
     @Override
@@ -59,12 +61,20 @@ public class Filter extends AppCompatActivity {
         }
     }
 
+    /**
+    Moves to the back activity.
+    @param view Required by the intent API. Not used.
+    */
     public void back (View view) {
         Application.setFilter(new String[]{"", "", ""});
         Intent intent = new Intent(Filter.this, Application.class);
         startActivity(intent);
     }
 
+    /**
+     Moves to the filter activity.
+     @param view Required by the intent API. Not used.
+     */
     public void filter (View view) {
         Spinner genderSpin = findViewById(R.id.genders);
         Spinner ageSpin = findViewById(R.id.ages);

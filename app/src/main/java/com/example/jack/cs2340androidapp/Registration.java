@@ -13,7 +13,9 @@ import android.widget.EditText;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-@SuppressWarnings("ChainedMethodCall")
+/**
+Handles registration.
+ */
 public class Registration extends AppCompatActivity {
 
     private final String adminPass = "a";
@@ -36,7 +38,10 @@ public class Registration extends AppCompatActivity {
         }
         nameField.requestFocus();
     }
-
+/**
+Builds a new user based on the fields entered. Throws an AlertDialog if errors exist.
+@param view Required in order to fetch components and their contents.
+ */
     public void createUser (View view) {
         EditText phoneField = findViewById(R.id.phoneField);
         String phone = phoneField.getText().toString();
@@ -82,6 +87,8 @@ public class Registration extends AppCompatActivity {
         }
     }
 
+    //The second bit of the function above. I don't actually remember why I split it up.
+    //I think there might be a good reason? Who knows.
     private void createUser(boolean continueLogin) {
         EditText city = findViewById(R.id.cityField);
         EditText phone = findViewById(R.id.phoneField);
@@ -118,6 +125,10 @@ public class Registration extends AppCompatActivity {
         }
     }
 
+    /**
+    Segues to the back intent and clears history.
+    @param view Required by the buttonPress system. Not used.
+     */
     public void back (View view) {
         Intent intent = new Intent(Registration.this, MainScreen.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);

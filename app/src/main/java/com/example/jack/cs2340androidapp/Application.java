@@ -27,7 +27,9 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@SuppressWarnings("ChainedMethodCall")
+/**
+Application screen displays map.
+ */
 public class Application extends FragmentActivity implements
         GoogleMap.OnMarkerClickListener,
         OnMapReadyCallback
@@ -35,10 +37,18 @@ public class Application extends FragmentActivity implements
 
     private static String[] filter = {"", "", ""};
 
+    /**
+    Returns the global filters produced by the filter class.
+    @return A string[] containing filter terms.
+     */
     public static String[] getFilter() {
         return filter.clone();
     }
 
+    /**
+    Sets the global filter.
+    @param filter The filter to set the global to
+     */
     public static void setFilter(String[] filter) {
         Application.filter = filter.clone();
     }
@@ -47,6 +57,10 @@ public class Application extends FragmentActivity implements
     private static boolean firebaseChange = false;
 
     @Override
+    /*
+    Repositions the map and adds markers when the map is prepared for display.
+    @param GoogleMap Passed in by the Google Maps API.
+     */
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
@@ -90,6 +104,11 @@ public class Application extends FragmentActivity implements
     }
 
     @Override
+    /*
+    Creates a popup when a marker is clicked.
+    @param Marker The marker clicked, passed in by local lambda function.
+    @return Whether or not the event was handled
+     */
     public boolean onMarkerClick(final Marker marker) {
 
         // Retrieve the data from the marker.
@@ -103,6 +122,10 @@ public class Application extends FragmentActivity implements
         return false;
     }
 
+    /**
+    Returns a list of shelters with the global filters applied.
+    @return Filtered List<Shelter> of shelters.
+     */
     private List<Shelter> getFilteredShelters () {
         List<Shelter> shelters = ShelterModel.getShelters();
         List<Shelter> filteredShelters = new ArrayList<>();
@@ -309,11 +332,19 @@ public class Application extends FragmentActivity implements
         alertDialog.show();
     }
 
+    /**
+    Moves to the filter activity.
+    @param view Required by the intent API. Not used.
+     */
     public void filter(View view) {
         Intent moveToFilter = new Intent(Application.this, Filter.class);
         startActivity(moveToFilter);
     }
 
+    /**
+    Moves to the logout activity.
+    @param view Required by the intent API. Not used.
+     */
     public void logout(View view) {
         AuthUI.getInstance().signOut(this);
         FirebaseAuth.getInstance().signOut();

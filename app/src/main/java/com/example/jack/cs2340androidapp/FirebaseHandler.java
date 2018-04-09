@@ -9,13 +9,17 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
- * Created by jack on 2/27/18.
+ * Fetches data from Firebase.
  */
-
 public class FirebaseHandler {
 
+    /**
+    Loads the Firebase database into the ShelterModel's public global list.
+    Must be called in order for data to be loaded.
+     */
     public void initialize() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference ref = database.getReference("shelters");
@@ -24,9 +28,9 @@ public class FirebaseHandler {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
-                HashMap<String, HashMap<String, String>> map =
+                Map<String, HashMap<String, String>> map =
                         (HashMap<String, HashMap<String, String>>)dataSnapshot.getValue();
-                List<String> shelterNames = new ArrayList();
+                Iterable<String> shelterNames = new ArrayList();
                 try {
                     shelterNames = new ArrayList<>(map.keySet());
                 } catch (java.lang.NullPointerException e) {}
@@ -34,7 +38,7 @@ public class FirebaseHandler {
                 for (String name: shelterNames) {
                     try {
                         Shelter tempShelter = new Shelter();
-                        HashMap<String, String> params = map.get(name);
+                        Map<String, String> params = map.get(name);
                         tempShelter.setCapacity(params.get("Capacity"));
                         tempShelter.setLatitude(Double.parseDouble(params.get("Latitude")));
                         tempShelter.setLongitude(Double.parseDouble(params.get("Longitude")));
@@ -42,7 +46,7 @@ public class FirebaseHandler {
                         tempShelter.setPhoneNumber(params.get("Phone Number"));
                         tempShelter.setRestrictions(params.get("Restrictions"));
                         tempShelter.setSpecialNotes(params.get("Special Notes"));
-                        Long vacancies = new Long(0);
+                        Long vacancies = 0L;
                         try {
                             vacancies = (Long)dataSnapshot.child(name)
                                     .child("Vacancies").getValue();
@@ -60,7 +64,6 @@ public class FirebaseHandler {
             @Override
             public void onCancelled(DatabaseError error) {
                 // Failed to read value
-                System.err.println(error.getMessage());
             }
         });
     }
