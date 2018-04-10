@@ -8,7 +8,7 @@ import java.util.Collection;
 import java.util.List;
 
 @SuppressWarnings("ChainedMethodCall")
-class Shelter {
+public class Shelter {
 
     private static List<Shelter> shelters = new ArrayList<>();
     private String name;
@@ -21,6 +21,21 @@ class Shelter {
     private int vacancies;
     private int uniqueKey;
 
+
+    public Shelter(String name, String capacity, String phoneNumber, String restrictions,
+                   String specialNotes, int vacancies, int uniqueKey) {
+        this.name = name;
+        this.capacity = capacity;
+        this.phoneNumber = phoneNumber;
+        this.restrictions = restrictions;
+        this.specialNotes = specialNotes;
+        this.vacancies = vacancies;
+        this.uniqueKey = uniqueKey;
+    }
+
+    public Shelter() {
+        this("","","","","",0,0);
+    }
     /*
         Returns the public list of shelters fetched by FirebaseHandler.
         @return List<Shelter> of all shelters in the database.

@@ -163,7 +163,7 @@ public class Application extends FragmentActivity implements
      * @param s Shelter to filter
      * @return True if kept, false if not kept.
      */
-    public boolean newbornFilters(Shelter s) {
+    public static boolean newbornFilters(Shelter s) {
         String restr = s.getRestrictions();
         String restrLC = restr.toLowerCase();
         return !"Families with Newborns".equals(filter[2]) ||
