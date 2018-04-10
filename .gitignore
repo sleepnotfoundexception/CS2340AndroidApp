@@ -9,6 +9,7 @@ local.properties
 
 # Gradle generated files
 .gradle/
+build/intermediates/lint-cache/
 
 # Signing files
 .signing/
@@ -28,7 +29,7 @@ local.properties
 *.iml
 
 # OS-specific files
-.DS_Store
+*.DS_Store
 .DS_Store?
 ._*
 .Spotlight-V100

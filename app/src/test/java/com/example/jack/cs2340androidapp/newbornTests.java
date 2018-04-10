@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 
 /**
  * Runs tests for the newbornFilters method.
@@ -24,7 +25,8 @@ public class newbornTests {
      */
     @Before
     public void setUp() {
-        shelter = new Shelter("Aardvark", "500", "num", "n/a", "newborns");
+        shelter = new Shelter("new shelter", "500", "num",
+                "n/a", "n/a");
     }
 
     /**
@@ -34,16 +36,51 @@ public class newbornTests {
     public void testNormal() {
         //Reset filter to blank
         Application.setFilter(new String[]{"", "", ""});
-        //test normal cases
+
+        //test base cases
         assertTrue(Application.newbornFilters(shelter));
-        shelter.setRestrictions("none");
+        shelter.setRestrictions("families with newborns");
         assertTrue(Application.newbornFilters(shelter));
 
-        //test capital letters
-        Application.setFilter(new String[]{"", "", "Families w/ newborns"});
+        ///testing variations of families with newborns
+        Application.setFilter(new String[]{"", "", "Families with Newborns"});
+        shelter.setRestrictions("families with newborns");
+        assertTrue(Application.newbornFilters(shelter));
         shelter.setRestrictions("families w/ newborns");
         assertTrue(Application.newbornFilters(shelter));
-        shelter.setRestrictions("NewBorns");
+        shelter.setRestrictions("families, newborns");
         assertTrue(Application.newbornFilters(shelter));
+        shelter.setRestrictions("families newborns");
+        assertTrue(Application.newbornFilters(shelter));
+        shelter.setRestrictions("newborns families");
+        assertTrue(Application.newbornFilters(shelter));
+        shelter.setRestrictions("none");
+        assertFalse(Application.newbornFilters(shelter));
+        shelter.setRestrictions("newborn babies without a family");
+        assertFalse(Application.newbornFilters(shelter));
+
+
+        //test capital letters
+        shelter.setRestrictions("Families With Newborns");
+        assertTrue(Application.newbornFilters(shelter));
+        shelter.setRestrictions("FamiLieS W/ NewbOrNs");
+        assertTrue(Application.newbornFilters(shelter));
+
+        //test trim
+        shelter.setRestrictions("    families with newborns   ");
+        assertTrue(Application.newbornFilters(shelter));
+        shelter.setRestrictions("    families newborns   ");
+        assertTrue(Application.newbornFilters(shelter));
+
+        //not all conditions met
+        shelter.setRestrictions("families only");
+        assertFalse(Application.newbornFilters(shelter));
+        shelter.setRestrictions("newborns only");
+        assertFalse(Application.newbornFilters(shelter));
+
+
     }
+
+
+
 }
