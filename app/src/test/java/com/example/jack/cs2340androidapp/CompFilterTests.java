@@ -19,26 +19,21 @@ public class CompFilterTests {
     /**
      * JUnit specific constant
      */
-    public static final int TIMEOUT = 200;
-    /**
-     * JUnit specific constant
-     */
-    public static final boolean CHECK_EXCEPTION_MESSAGES = false;
+    private static final int TIMEOUT = 200;
 
-    @Before
     /**
-     * Prepare to execute JUnit test by creating shelter to pass in
+     * Sets up test
      */
+    @Before
     public void setUp() {
-        shelter = new Shelter("testShelter", "234", "8289894242", "Male", "Any", 10, 1);
-        shelter2 = new Shelter("testShelter2", "-12", "fourteen", "arg", "4", -5, 3);
+        shelter = new Shelter("testShelter", "234", "8289894242", "Male", "Any");
+        shelter2 = new Shelter("testShelter2", "-12", "fourteen", "arg", "4");
     }
 
-
-    @Test(timeout = TIMEOUT)
     /**
-     * Execute test of newbornFilters function
+     * Runs test
      */
+    @Test(timeout = TIMEOUT)
     public void testNormal() {
         //Test defaults
         Application.setFilter(new String[]{"", "", ""});

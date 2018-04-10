@@ -150,11 +150,11 @@ public class Application extends FragmentActivity implements
                 return false;
             }
         }
-        String restr = s.getRestrictions();
-        String restrLC = restr.toLowerCase();
+        String restrictions = s.getRestrictions();
+        String restrictionsLC = restrictions.toLowerCase();
         return ("".equals(filter[1]) || MFFilter(s)) && ("".equals(filter[2])
                 || "Families with Newborns".equals(filter[2]) ||
-                restrLC.contains(filter[2].toLowerCase()))
+                restrictionsLC.contains(filter[2].toLowerCase()))
                 && newbornFilters(s);
     }
 
@@ -164,12 +164,12 @@ public class Application extends FragmentActivity implements
      * @return True if kept, false if not kept.
      */
     public static boolean newbornFilters(Shelter s) {
-        String restr = s.getRestrictions();
-        String restrLC = restr.toLowerCase();
+        String restrictions = s.getRestrictions();
+        String restrictionsLC = restrictions.toLowerCase();
         return !"Families with Newborns".equals(filter[2]) ||
-                restrLC.contains(filter[2].toLowerCase()) ||
-                (restrLC.contains("families") &&
-                        restrLC.contains("newborns"));
+                restrictionsLC.contains(filter[2].toLowerCase()) ||
+                (restrictionsLC.contains("families") &&
+                        restrictionsLC.contains("newborns"));
     }
 
     /**
@@ -308,9 +308,9 @@ public class Application extends FragmentActivity implements
 
     private void claimBeds(Shelter s) {
         //Create another of the original dialog to return to after finishing
-        AlertDialog.Builder odbuilder = new AlertDialog.Builder(Application.this);
+        AlertDialog.Builder odBuilder = new AlertDialog.Builder(Application.this);
         final AlertDialog originalDialog =
-                odbuilder.create();
+                odBuilder.create();
         originalDialog.setTitle(s.getName());
         String message = "";
         message += s.getPhoneNumber() + "\n";
@@ -331,7 +331,7 @@ public class Application extends FragmentActivity implements
         });
 
         //Build the claim beds dialog
-        final AlertDialog alertDialog = odbuilder.create();
+        final AlertDialog alertDialog = odBuilder.create();
         alertDialog.setTitle("Claim Beds");
         final NumberPicker numberPicker = new NumberPicker(Application.this);
         numberPicker.setMaxValue(s.getVacancies());

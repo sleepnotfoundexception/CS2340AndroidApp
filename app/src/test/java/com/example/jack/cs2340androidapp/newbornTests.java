@@ -17,25 +17,20 @@ public class newbornTests {
     /**
      * JUnit specific constant
      */
-    public static final int TIMEOUT = 200;
-    /**
-     * JUnit specific constant
-     */
-    public static final boolean CHECK_EXCEPTION_MESSAGES = false;
+    private static final int TIMEOUT = 200;
 
-    @Before
     /**
-     * Prepare to execute JUnit test by creating shelter to pass in
+     * Sets up test
      */
+    @Before
     public void setUp() {
-        shelter = new Shelter("Aardvark", "500", "num", "n/a", "newborns", 10, 1);
+        shelter = new Shelter("Aardvark", "500", "num", "n/a", "newborns");
     }
 
-
-    @Test(timeout = TIMEOUT)
     /**
-     * Execute test of newbornFilters function
+     * Runs test
      */
+    @Test(timeout = TIMEOUT)
     public void testNormal() {
         //Reset filter to blank
         Application.setFilter(new String[]{"", "", ""});
