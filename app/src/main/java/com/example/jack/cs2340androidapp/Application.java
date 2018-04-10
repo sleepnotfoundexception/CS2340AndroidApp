@@ -152,7 +152,13 @@ public class Application extends FragmentActivity implements
         }
         String restrictions = s.getRestrictions();
         String restrictionsLC = restrictions.toLowerCase();
-        return ("".equals(filter[1]) || MFFilter(s)) && ("".equals(filter[2])
+        boolean MF = false;
+        try {
+            MF = MFFilter(s);
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        }
+        return ("".equals(filter[1]) || MF) && ("".equals(filter[2])
                 || "Families with Newborns".equals(filter[2]) ||
                 restrictionsLC.contains(filter[2].toLowerCase()))
                 && newbornFilters(s);
@@ -195,8 +201,18 @@ public class Application extends FragmentActivity implements
      * Filter options for male/female shelters
      * @param s Shelter to filter
      * @return True if kept, false if not kept.
+     * @throws IllegalArgumentException If shelter is null.
      */
-    public static boolean MFFilter(Shelter s) {
+    public static boolean MFFilter(Shelter s) throws IllegalArgumentException {
+        if (s == null) {
+
+            throw new IllegalArgumentException("Shelter cannot be null");
+        }
+
+        if (s.getRestrictions() == null) {
+
+            throw new IllegalArgumentException("Shelter's restriction cannot be null");
+        }
         String str = s.getRestrictions();
         String strLC = str.toLowerCase();
         if ("Female".equals(filter[1])) {
