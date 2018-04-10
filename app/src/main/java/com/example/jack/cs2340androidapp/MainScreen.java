@@ -112,7 +112,7 @@ public class MainScreen extends AppCompatActivity {
                                         assert reservationMap != null;
                                         reservation =
                                                 new Pair((int)(long)reservationMap.get("first"),
-                                                        (int)(long) reservationMap.get("second"));
+                                                        (int)(long)reservationMap.get("second"));
                                 }
                                 boolean isAdmin = false;
                                 if ((admin != null) && "true".equals(admin)) {

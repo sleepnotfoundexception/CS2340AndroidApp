@@ -58,8 +58,12 @@ public class newbornTests {
         assertFalse(Application.newbornFilters(shelter));
         shelter.setRestrictions("newborn babies without a family");
         assertFalse(Application.newbornFilters(shelter));
+        secondTestBracket();
 
+    }
 
+    //This only exists because the style checker was complaining the first method was too long ;=;
+    private void secondTestBracket() {
         //test capital letters
         shelter.setRestrictions("Families With Newborns");
         assertTrue(Application.newbornFilters(shelter));
@@ -77,10 +81,6 @@ public class newbornTests {
         assertFalse(Application.newbornFilters(shelter));
         shelter.setRestrictions("newborns only");
         assertFalse(Application.newbornFilters(shelter));
-
-
     }
-
-
 
 }

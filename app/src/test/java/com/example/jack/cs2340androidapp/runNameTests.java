@@ -8,6 +8,7 @@ import static org.junit.Assert.assertFalse;
 
 
 /**
+ * Run name testing
  * Created by sidac on 4/10/2018.
  */
 
@@ -15,11 +16,17 @@ public class runNameTests {
     private Shelter shelter;
     private static final int TIMEOUT = 200;
 
+    /**
+     * Setup test
+     */
     @Before
     public void setUp() {
         shelter = new Shelter("random shelter", "500", "num", "n/a", "none");
     }
 
+    /**
+     * Run test
+     */
     @Test(timeout = TIMEOUT)
     public void testNormal() {
         //Reset filter to blank

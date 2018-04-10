@@ -35,6 +35,7 @@ public class CompFilterTests {
      */
     @Test(timeout = TIMEOUT)
     public void testNormal() {
+        //Test purpose: ensure all filters are being applied
         //Test defaults
         Application.setFilter(new String[]{"", "", ""});
         assertTrue(Application.runFilters(shelter));
@@ -53,7 +54,7 @@ public class CompFilterTests {
         //Test gender filter
         Application.setFilter(new String[]{"testShelter2", "Male", ""});
         assertTrue(Application.runFilters(shelter2));
-        //Run edge case tests
+        //Run some assorted edge case tests
         Application.setFilter(new String[]{"test2", "", ""});
         assertFalse(Application.runFilters(shelter2));
         Application.setFilter(new String[]{"testShelter2", "", "arg"});
