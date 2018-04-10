@@ -144,7 +144,7 @@ public class Application extends FragmentActivity implements
      * @param s Shelter to filter.
      * @return True if kept, false if not kept.
      */
-    public boolean runFilters(Shelter s) {
+    public static boolean runFilters(Shelter s) {
         if (!"".equals(filter[0])) {
             if (!runNameFilters(s)) {
                 return false;
@@ -177,7 +177,7 @@ public class Application extends FragmentActivity implements
      * @param s Shelter to filter
      * @return True if kept, false if not kept.
      */
-    public boolean runNameFilters(Shelter s) {
+    public static boolean runNameFilters(Shelter s) {
         String filter0LC = filter[0].toLowerCase();
         String filter0LCTrim = filter0LC.trim();
         String[] nameFilters = filter0LCTrim.split(" ");
@@ -196,7 +196,7 @@ public class Application extends FragmentActivity implements
      * @param s Shelter to filter
      * @return True if kept, false if not kept.
      */
-    public boolean MFFilter(Shelter s) {
+    public static boolean MFFilter(Shelter s) {
         String str = s.getRestrictions();
         String strLC = str.toLowerCase();
         if ("Female".equals(filter[1])) {
