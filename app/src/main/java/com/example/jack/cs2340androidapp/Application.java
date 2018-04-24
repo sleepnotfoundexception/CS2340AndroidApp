@@ -3,9 +3,11 @@ package com.example.jack.cs2340androidapp;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.ContextCompat;
 import android.util.Pair;
 import android.view.View;
 import android.widget.NumberPicker;
@@ -81,6 +83,12 @@ public class Application extends FragmentActivity implements
             LatLngBounds BOUNDS = new LatLngBounds(
                     new LatLng(minLat, minLng), new LatLng(maxLat, maxLng));
             mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(BOUNDS, 50));
+        }
+        if (ContextCompat.checkSelfPermission(this,
+                android.Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            mMap.setMyLocationEnabled(true);
+        } else {
         }
         mMap.setOnMarkerClickListener(this);
     }
