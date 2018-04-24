@@ -6,6 +6,20 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:spinnerItemStyle">@style/MooSpinnerItem</item>
     </style>
+
+    <style name="MooSpinnerItem" parent="android:Widget.TextView.SpinnerItem">
+        <item name="android:textAppearance">@style/MooTextAppearanceSpinnerItem</item>
+    </style>
+
+    <style name="MooTextAppearanceSpinnerItem" parent="android:TextAppearance.Widget.TextView.SpinnerItem">
+        <item name="android:textColor">#A5B7CA</item>
+    </style>
+
+    <style name="BlueAuth" parent="FirebaseUI">
+    <!-- Required for sign-in flow styling -->
+        <item name="android:background">#2B4B6F</item>
+</style>
 
 </resources>

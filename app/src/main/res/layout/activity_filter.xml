@@ -4,9 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#2B4B6F"
     tools:context="com.example.jack.cs2340androidapp.Filter">
 
     <Spinner
+        android:textColor="#A6B7CA"
         android:id="@+id/ages"
         android:layout_width="0dp"
         android:layout_height="32dp"
@@ -19,6 +21,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
+        android:textColor="#A6B7CA"
         android:id="@+id/genders"
         android:layout_width="0dp"
         android:layout_height="32dp"
@@ -31,6 +34,8 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
+        android:textColor="#A6B7CA"
+        android:textColorHint="#A6B7CA"
         android:id="@+id/editText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -46,6 +51,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:textColor="#A6B7CA"
         android:id="@+id/Gender"
         android:layout_width="83dp"
         android:layout_height="25dp"
@@ -56,6 +62,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:textColor="#A6B7CA"
         android:id="@+id/AgeRange"
         android:layout_width="84dp"
         android:layout_height="38dp"
@@ -78,6 +85,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <Button
+            android:background="#A6B7CA"
             android:id="@+id/cancel"
             style="?attr/buttonBarStyle"
             android:layout_width="wrap_content"
@@ -85,7 +93,6 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
-            android:background="@android:color/darker_gray"
             android:onClick="back"
             android:text="Cancel"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -94,6 +101,7 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <Button
+            android:background="#A6B7CA"
             android:id="@+id/filter"
             style="?attr/buttonBarStyle"
             android:layout_width="wrap_content"
@@ -101,7 +109,6 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="20dp"
             android:layout_weight="1"
-            android:background="@android:color/darker_gray"
             android:onClick="filter"
             android:text="Filter"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -4,28 +4,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#2B4B6F"
     tools:context="com.example.jack.cs2340androidapp.MainScreen">
 
     <Button
         android:id="@+id/button2"
-        android:layout_width="161dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="218dp"
+        android:layout_height="47dp"
+        android:background="#A6B7CA"
         android:onClick="openLogin"
         android:text="Login"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
-        android:text="Welcome to MiAmi!"
+        android:layout_marginBottom="32dp"
+        android:text="MiAmi"
+        android:textColor="#A5B7CA"
+        android:textSize="78sp"
+        app:layout_constraintBottom_toTopOf="@+id/button2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
+
 </android.support.constraint.ConstraintLayout>

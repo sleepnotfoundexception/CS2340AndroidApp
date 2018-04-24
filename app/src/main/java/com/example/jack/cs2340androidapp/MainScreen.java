@@ -53,6 +53,7 @@ public class MainScreen extends AppCompatActivity {
                 AuthUI.getInstance()
                         .createSignInIntentBuilder()
                         .setAvailableProviders(providers)
+                        .setTheme(R.style.BlueAuth)
                         .build(),
                 RC_SIGN_IN);
 

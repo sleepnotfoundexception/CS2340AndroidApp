@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
+import android.util.DisplayMetrics;
 import android.util.Pair;
 import android.view.View;
 import android.widget.NumberPicker;
@@ -69,20 +70,26 @@ public class Application extends FragmentActivity implements
         final double maxLng = maxLngi;
         final double minLat = minLati;
         final double maxLat = maxLati;
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        final int height = displayMetrics.heightPixels;
+        final int width = displayMetrics.widthPixels;
         if (firebaseChange) {
             mMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
                 @Override
                 public void onMapLoaded() {
                     LatLngBounds BOUNDS = new LatLngBounds(
                             new LatLng(minLat, minLng), new LatLng(maxLat, maxLng));
-                    mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(BOUNDS, 50));
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(BOUNDS, width, height, 50));
                     firebaseChange = false;
                 }
             });
         } else {
             LatLngBounds BOUNDS = new LatLngBounds(
                     new LatLng(minLat, minLng), new LatLng(maxLat, maxLng));
-            mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(BOUNDS, 50));
+            if (minLat - maxLat != 0 && minLng - maxLng != 0) {
+                mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(BOUNDS, width, height, 50));
+            }
         }
         if (ContextCompat.checkSelfPermission(this,
                 android.Manifest.permission.ACCESS_FINE_LOCATION)
